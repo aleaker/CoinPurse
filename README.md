@@ -1,0 +1,2 @@
+# CoinPurse
+Crypto assets organizer

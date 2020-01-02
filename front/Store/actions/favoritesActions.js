@@ -1,18 +1,22 @@
 import axios from "axios";
 
-const setFavorites = favorites => dispatch =>
+export const setFavorites = favorites => dispatch =>
   dispatch({ type: "SET_FAVORITES", favorites });
 
-const fetchFavorites = () =>
+export const fetchFavorites = () => dispatch =>
   axios
     .get("api/favorites/fetchFavorites")
-    .then(favorites => console.log(favorites.data))//setFavorites(favorites));
+    .then(res => res.data)
+    .then(favorites => dispatch(setFavorites(favorites)));
 
 export const addFavorite = coinObj => dispatch =>
-  axios.post("api/favorites/addFavorite/", coinObj).then(fetchFavorites());
-//.then(answ => console.log(answ.data));
+  axios.post("api/favorites/addFavorite/", coinObj).then(answ => {
+    answ.status == 201 ? dispatch(fetchFavorites()) : console.log(answ.data);
+  });
 
-export const deleteFavorite = coinName => dispatch =>
+export const deleteFavorite = coinName => dispatch => {
+  console.log(coinName);
   axios
-    .delete("api/favorites/deleteFavorite", coinName)
-    .then(answ => console.log(answ.data));
+    .delete("api/favorites/deleteFavorite", { data: { coinName } })
+    .then(answ=>answ.status== 204 ?  dispatch(fetchFavorites()):console.log("Error on delete"));
+};

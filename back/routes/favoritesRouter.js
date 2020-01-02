@@ -2,6 +2,12 @@ const router = require("express").Router();
 const User = require("../models/user");
 const Favorite = require("../models/favorite");
 
+router.get("/fetchFavorites", (req, res) => {
+  Favorite.findAll({ where: { UserId: req.user.id } }).then(favorites =>
+    res.send(favorites)
+  );
+});
+
 router.post("/addFavorite", (req, res) => {
   Favorite.findOne({
     where: { UserId: req.user.id, name: req.body.name }
@@ -9,18 +15,17 @@ router.post("/addFavorite", (req, res) => {
     !!exists
       ? res.send("Already following the asset")
       : User.findByPk(req.user.id).then(user => {
-          user.addFavs(req.body);
+          Favorite.create(req.body)
+            .then(fav => user.addFavorite(fav))
+            .then(() => res.sendStatus(201));
         });
-  }).then(res=>res.send("listo"))
+  });
 });
 
-router.get("/fetchFavorites",(req,res)=>{
-    Favorite.findAll({where:{UserId:req.user.id}}).then(favorites=>res.send(favorites))
-})
-//User.findByPk(req.user.id).then(user=>{user.addFavs(req.body)})
-
-// router.put('/editFavorite',(req,res)=>{console.log("body",req.body.coinName)
-// User.findByPk(req.user.id).then(user=>console.log("usuario a editar",user))
-// })
+router.delete("/deleteFavorite", (req, res) => {
+  Favorite.findOne({ where: { UserId: req.user.id, name: req.body.coinName } })
+    .then(fav => fav.destroy())
+    .then(() => res.sendStatus(204));
+});
 
 module.exports = router;

@@ -111,16 +111,17 @@ var setError = function setError(error) {
 /*!*******************************************!*\
   !*** ./Store/actions/favoritesActions.js ***!
   \*******************************************/
-/*! exports provided: addFavorite, deleteFavorite */
+/*! exports provided: setFavorites, fetchFavorites, addFavorite, deleteFavorite */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setFavorites", function() { return setFavorites; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchFavorites", function() { return fetchFavorites; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addFavorite", function() { return addFavorite; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteFavorite", function() { return deleteFavorite; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-
 
 var setFavorites = function setFavorites(favorites) {
   return function (dispatch) {
@@ -130,24 +131,31 @@ var setFavorites = function setFavorites(favorites) {
     });
   };
 };
-
 var fetchFavorites = function fetchFavorites() {
-  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("api/favorites/fetchFavorites").then(function (favorites) {
-    return console.log(favorites.data);
-  });
-}; //setFavorites(favorites));
-
-
+  return function (dispatch) {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("api/favorites/fetchFavorites").then(function (res) {
+      return res.data;
+    }).then(function (favorites) {
+      return dispatch(setFavorites(favorites));
+    });
+  };
+};
 var addFavorite = function addFavorite(coinObj) {
   return function (dispatch) {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("api/favorites/addFavorite/", coinObj).then(fetchFavorites());
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("api/favorites/addFavorite/", coinObj).then(function (answ) {
+      answ.status == 201 ? dispatch(fetchFavorites()) : console.log(answ.data);
+    });
   };
-}; //.then(answ => console.log(answ.data));
-
+};
 var deleteFavorite = function deleteFavorite(coinName) {
   return function (dispatch) {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("api/favorites/deleteFavorite", coinName).then(function (answ) {
-      return console.log(answ.data);
+    console.log(coinName);
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("api/favorites/deleteFavorite", {
+      data: {
+        coinName: coinName
+      }
+    }).then(function (answ) {
+      return answ.status == 204 ? dispatch(fetchFavorites()) : console.log("Error on delete");
     });
   };
 };
@@ -40865,8 +40873,14 @@ function home() {
   var coins = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useSelector"])(function (state) {
     return state.coins;
   });
+  var followingArr = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useSelector"])(function (state) {
+    return state.following;
+  }).map(function (fav) {
+    return fav.symbol;
+  });
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     dispatch(Object(_Store_actions_homeActions__WEBPACK_IMPORTED_MODULE_1__["fetchCoins"])());
+    dispatch(Object(_Store_actions_favoritesActions__WEBPACK_IMPORTED_MODULE_4__["fetchFavorites"])());
     var reloader = setInterval(function () {
       return dispatch(Object(_Store_actions_homeActions__WEBPACK_IMPORTED_MODULE_1__["fetchCoins"])());
     }, 10000);
@@ -40885,9 +40899,17 @@ function home() {
     dispatch(Object(_Store_actions_favoritesActions__WEBPACK_IMPORTED_MODULE_4__["addFavorite"])(coinObj));
   };
 
+  var handleDeletFavorite = function handleDeletFavorite(event) {
+    event.preventDefault();
+    console.log("handle", event.target.value);
+    dispatch(Object(_Store_actions_favoritesActions__WEBPACK_IMPORTED_MODULE_4__["deleteFavorite"])(event.target.value));
+  };
+
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, coins.length ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_singleCoin__WEBPACK_IMPORTED_MODULE_2__["default"], {
     coins: coins,
-    handleAddFavorite: handleAddFavorite
+    followingArr: followingArr,
+    handleAddFavorite: handleAddFavorite,
+    handleDeletFavorite: handleDeletFavorite
   }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "HODL a SEC, loading..."));
 }
 
@@ -40908,13 +40930,20 @@ __webpack_require__.r(__webpack_exports__);
 
 function singleCoin(_ref) {
   var coins = _ref.coins,
-      handleAddFavorite = _ref.handleAddFavorite;
+      followingArr = _ref.followingArr,
+      handleAddFavorite = _ref.handleAddFavorite,
+      handleDeletFavorite = _ref.handleDeletFavorite;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, coins.map(function (coin) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       key: coin.symbol,
       value: coin.name,
       className: "singleCoinContainer"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, coin.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, coin.priceUsd), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, coin.changePercent24Hr), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Add"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, coin.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, coin.priceUsd), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, coin.changePercent24Hr), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Add"), followingArr.includes(coin.symbol) ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      onClick: function onClick(event) {
+        return handleDeletFavorite(event);
+      },
+      value: coin.name
+    }, "Unfollow") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       onClick: function onClick(event) {
         return handleAddFavorite(event);
       },
@@ -41152,6 +41181,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _Store_actions_userActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../Store/actions/userActions */ "./Store/actions/userActions.js");
+/* harmony import */ var _Store_actions_favoritesActions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../Store/actions/favoritesActions */ "./Store/actions/favoritesActions.js");
+
 
 
 
@@ -41161,8 +41192,9 @@ function NavbarContainer(_ref) {
   var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useDispatch"])();
 
   var handleLogout = function handleLogout() {
+    dispatch(Object(_Store_actions_favoritesActions__WEBPACK_IMPORTED_MODULE_3__["setFavorites"])([]));
     dispatch(Object(_Store_actions_userActions__WEBPACK_IMPORTED_MODULE_2__["logOutUser"])(user));
-    history.push('/');
+    history.push("/");
   };
 
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, user.id ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, user.username), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {

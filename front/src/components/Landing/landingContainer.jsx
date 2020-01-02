@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react";
 import Login from "./login";
 import Register from "./register";
 import { registerUser, loginUser } from "../../../Store/actions/userActions";
+import {setError} from "../../../Store/actions/errorActions"
 
 export default function landing({ history }) {
+  const usernameError = useSelector(state=>state.error)
   const [state, setState] = useState({ username: "", password: "", email: "" });
   const [wrongData, setWrongData] = useState();
   const [registerError, setRegisterError] = useState();
@@ -19,6 +21,7 @@ export default function landing({ history }) {
     event.persist();
     setWrongData();
     setRegisterError();
+    dispatch(setError(''))
     setState(state => ({ ...state, [event.target.name]: event.target.value }));
   };
 
@@ -47,7 +50,7 @@ export default function landing({ history }) {
     if (state.email && !validateEmail(state.email)) {
       return setRegisterError("Use a valid email or leave it blank");
     }
-    dispatch(registerUser(state,history)).then(x=>console.log(x));
+    dispatch(registerUser(state,history))
   };
 
   return (
@@ -61,6 +64,8 @@ export default function landing({ history }) {
         handleChange={handleChange}
         handleSubmit={handleRegister}
         registerError={registerError}
+        usernameError={usernameError}
+        
       />
     </div>
   );

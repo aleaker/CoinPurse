@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function landingRegister({handleChange,handleSubmit,registerError}) {
+export default function landingRegister({handleChange,handleSubmit,registerError,usernameError}) {
   return (
     <div>
       <form>
@@ -21,7 +21,7 @@ export default function landingRegister({handleChange,handleSubmit,registerError
           <input required name="confirmPassword" type="password" onChange={e=>handleChange(e)}/>
         </label>
       </form>
-      {registerError? <p>{registerError}</p> : ""}
+      {registerError || usernameError? <p>{registerError||usernameError}</p> : ""}
       <button onClick={e=>handleSubmit(e)} >Register</button>
 
     </div>

@@ -86,6 +86,74 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./Store/actions/errorActions.js":
+/*!***************************************!*\
+  !*** ./Store/actions/errorActions.js ***!
+  \***************************************/
+/*! exports provided: setError */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setError", function() { return setError; });
+var setError = function setError(error) {
+  return function (dispatch) {
+    return dispatch({
+      type: "SET_ERROR",
+      error: error
+    });
+  };
+};
+
+/***/ }),
+
+/***/ "./Store/actions/favoritesActions.js":
+/*!*******************************************!*\
+  !*** ./Store/actions/favoritesActions.js ***!
+  \*******************************************/
+/*! exports provided: addFavorite, deleteFavorite */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addFavorite", function() { return addFavorite; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteFavorite", function() { return deleteFavorite; });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var setFavorites = function setFavorites(favorites) {
+  return function (dispatch) {
+    return dispatch({
+      type: "SET_FAVORITES",
+      favorites: favorites
+    });
+  };
+};
+
+var fetchFavorites = function fetchFavorites() {
+  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("api/favorites/fetchFavorites").then(function (favorites) {
+    return console.log(favorites.data);
+  });
+}; //setFavorites(favorites));
+
+
+var addFavorite = function addFavorite(coinObj) {
+  return function (dispatch) {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("api/favorites/addFavorite/", coinObj).then(fetchFavorites());
+  };
+}; //.then(answ => console.log(answ.data));
+
+var deleteFavorite = function deleteFavorite(coinName) {
+  return function (dispatch) {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("api/favorites/deleteFavorite", coinName).then(function (answ) {
+      return console.log(answ.data);
+    });
+  };
+};
+
+/***/ }),
+
 /***/ "./Store/actions/homeActions.js":
 /*!**************************************!*\
   !*** ./Store/actions/homeActions.js ***!
@@ -130,6 +198,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isLoged", function() { return isLoged; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _errorActions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./errorActions */ "./Store/actions/errorActions.js");
+
 
 
 var setUser = function setUser(user) {
@@ -186,7 +256,7 @@ var registerUser = function registerUser(_ref3, history) {
       return res.data;
     }) //returns error msg as string or user
     .then(function (data) {
-      typeof data == 'string' ? data : (dispatch(setUser(data)), history.push("/home"));
+      typeof data == 'string' ? dispatch(Object(_errorActions__WEBPACK_IMPORTED_MODULE_1__["setError"])(data)) : (dispatch(setUser(data)), history.push("/home"));
     });
   };
 };
@@ -220,6 +290,54 @@ __webpack_require__.r(__webpack_exports__);
 
 var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || redux__WEBPACK_IMPORTED_MODULE_0__["compose"];
 /* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers__WEBPACK_IMPORTED_MODULE_3__["default"], composeEnhancers(Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_1__["default"], redux_logger__WEBPACK_IMPORTED_MODULE_2___default.a))));
+
+/***/ }),
+
+/***/ "./Store/reducers/errorReducer.js":
+/*!****************************************!*\
+  !*** ./Store/reducers/errorReducer.js ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case "SET_ERROR":
+      return action.error;
+
+    default:
+      return state;
+  }
+});
+
+/***/ }),
+
+/***/ "./Store/reducers/favoriteReducer.js":
+/*!*******************************************!*\
+  !*** ./Store/reducers/favoriteReducer.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case "SET_FAVORITES":
+      return action.favorites;
+
+    default:
+      return state;
+  }
+});
 
 /***/ }),
 
@@ -259,12 +377,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _homeReducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./homeReducer */ "./Store/reducers/homeReducer.js");
 /* harmony import */ var _userReducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./userReducer */ "./Store/reducers/userReducer.js");
+/* harmony import */ var _errorReducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./errorReducer */ "./Store/reducers/errorReducer.js");
+/* harmony import */ var _favoriteReducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./favoriteReducer */ "./Store/reducers/favoriteReducer.js");
+
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   coins: _homeReducer__WEBPACK_IMPORTED_MODULE_1__["default"],
-  user: _userReducer__WEBPACK_IMPORTED_MODULE_2__["default"]
+  user: _userReducer__WEBPACK_IMPORTED_MODULE_2__["default"],
+  error: _errorReducer__WEBPACK_IMPORTED_MODULE_3__["default"],
+  following: _favoriteReducer__WEBPACK_IMPORTED_MODULE_4__["default"]
 }));
 
 /***/ }),
@@ -40730,6 +40854,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Store_actions_homeActions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../Store/actions/homeActions */ "./Store/actions/homeActions.js");
 /* harmony import */ var _singleCoin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./singleCoin */ "./src/components/Home/singleCoin.jsx");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _Store_actions_favoritesActions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../Store/actions/favoritesActions */ "./Store/actions/favoritesActions.js");
+
 
 
 
@@ -40748,9 +40874,21 @@ function home() {
       return clearInterval(reloader);
     };
   }, []);
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, coins ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_singleCoin__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    coins: coins
-  }) : "HODL a SEC, loading...");
+
+  var handleAddFavorite = function handleAddFavorite(event) {
+    event.preventDefault();
+    var coinArr = event.target.value.split(",");
+    var coinObj = {
+      name: coinArr[0],
+      symbol: coinArr[1]
+    };
+    dispatch(Object(_Store_actions_favoritesActions__WEBPACK_IMPORTED_MODULE_4__["addFavorite"])(coinObj));
+  };
+
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, coins.length ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_singleCoin__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    coins: coins,
+    handleAddFavorite: handleAddFavorite
+  }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "HODL a SEC, loading..."));
 }
 
 /***/ }),
@@ -40769,12 +40907,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 
 function singleCoin(_ref) {
-  var coins = _ref.coins;
+  var coins = _ref.coins,
+      handleAddFavorite = _ref.handleAddFavorite;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, coins.map(function (coin) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       key: coin.symbol,
+      value: coin.name,
       className: "singleCoinContainer"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, coin.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, coin.priceUsd), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, coin.changePercent24Hr), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Add"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Follow"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "------------------------------------------------------------------"));
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, coin.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, coin.priceUsd), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, coin.changePercent24Hr), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Add"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      onClick: function onClick(event) {
+        return handleAddFavorite(event);
+      },
+      value: [coin.name, coin.symbol]
+    }, "Follow"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "------------------------------------------------------------------"));
   }));
 }
 
@@ -40796,6 +40941,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _login__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./login */ "./src/components/Landing/login.jsx");
 /* harmony import */ var _register__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./register */ "./src/components/Landing/register.jsx");
 /* harmony import */ var _Store_actions_userActions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../Store/actions/userActions */ "./Store/actions/userActions.js");
+/* harmony import */ var _Store_actions_errorActions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../Store/actions/errorActions */ "./Store/actions/errorActions.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -40816,8 +40962,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 function landing(_ref) {
   var history = _ref.history;
+  var usernameError = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(function (state) {
+    return state.error;
+  });
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
     username: "",
@@ -40849,6 +40999,7 @@ function landing(_ref) {
     event.persist();
     setWrongData();
     setRegisterError();
+    dispatch(Object(_Store_actions_errorActions__WEBPACK_IMPORTED_MODULE_5__["setError"])(''));
     setState(function (state) {
       return _objectSpread({}, state, _defineProperty({}, event.target.name, event.target.value));
     });
@@ -40878,9 +41029,7 @@ function landing(_ref) {
       return setRegisterError("Use a valid email or leave it blank");
     }
 
-    dispatch(Object(_Store_actions_userActions__WEBPACK_IMPORTED_MODULE_4__["registerUser"])(state, history)).then(function (x) {
-      return console.log(x);
-    });
+    dispatch(Object(_Store_actions_userActions__WEBPACK_IMPORTED_MODULE_4__["registerUser"])(state, history));
   };
 
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_login__WEBPACK_IMPORTED_MODULE_2__["default"], {
@@ -40890,7 +41039,8 @@ function landing(_ref) {
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_register__WEBPACK_IMPORTED_MODULE_3__["default"], {
     handleChange: handleChange,
     handleSubmit: handleRegister,
-    registerError: registerError
+    registerError: registerError,
+    usernameError: usernameError
   }));
 }
 
@@ -40951,7 +41101,8 @@ __webpack_require__.r(__webpack_exports__);
 function landingRegister(_ref) {
   var handleChange = _ref.handleChange,
       handleSubmit = _ref.handleSubmit,
-      registerError = _ref.registerError;
+      registerError = _ref.registerError,
+      usernameError = _ref.usernameError;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Username:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
     required: true,
     name: "registerUsername",
@@ -40978,7 +41129,7 @@ function landingRegister(_ref) {
     onChange: function onChange(e) {
       return handleChange(e);
     }
-  }))), registerError ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, registerError) : "", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+  }))), registerError || usernameError ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, registerError || usernameError) : "", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     onClick: function onClick(e) {
       return handleSubmit(e);
     }

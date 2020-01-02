@@ -1,8 +1,11 @@
 const crypto = require("crypto");
 const S = require("sequelize");
 const db = require("../config/db");
+const Favorite = require("./favorite")
 
 class User extends S.Model {}
+
+//api.coincap.io/v2/assets?ids=bitcoin,ethereum multiples monedas
 
 User.init(
   {
@@ -27,6 +30,7 @@ User.init(
     email: {
       type: S.STRING,
       allowNull: true,
+      defaultValue: null,
     },
     salt: {
       type: S.TEXT
@@ -34,9 +38,9 @@ User.init(
     isAdmin: {
       type: S.BOOLEAN,
       defaultValue: false
-    }
+    },
   },
-  { sequelize: db, modelname: "user" }
+  { sequelize: db, modelname: 'user'}
 );
 
 User.prototype.hashPassword = function(password) {
@@ -53,9 +57,18 @@ User.prototype.validatePassword = function(password) {
   return newPassword === this.password;
 };
 
+User.prototype.addFavs = function(coinObj) {
+  return Favorite.create(coinObj).then(fav => {
+    this.addFavorite(fav);
+    return fav;
+  });
+};
+
 User.beforeCreate(user => {
   user.salt = user.randomSalt();
   user.password = user.hashPassword(user.password);
 });
+
+User.hasMany(Favorite, { as: "favorite" });
 
 module.exports = User;

@@ -1,0 +1,1 @@
+export const setError = error => dispatch => dispatch({type:"SET_ERROR",error});

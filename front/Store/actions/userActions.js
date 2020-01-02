@@ -1,6 +1,8 @@
 import axios from "axios";
+import {setError} from "./errorActions"
 
 const setUser = user => dispatch => dispatch({ type: "SET_USER", user });
+
 
 export const fetchUser = ()=>dispatch=>axios.get('/api/user/loggedUser').then(res=>res.data).then(user=>dispatch(setUser(user)))
 
@@ -22,7 +24,7 @@ dispatch =>
   axios
     .post("/api/user/register", { registerUsername, registerPassword, email })
     .then(res => res.data) //returns error msg as string or user
-    .then(data => {typeof data == 'string' ? data :( dispatch(setUser(data)),history.push("/home"))})
+    .then(data => {typeof data == 'string' ? dispatch(setError(data)) :( dispatch(setUser(data)),history.push("/home"))})
 
 export const isLoged = () => dispatch => {
   axios.get("/api/user").then(user => dispatch(setUser(user)));

@@ -3,6 +3,7 @@ import homeReducer from "./homeReducer"
 import userReducer from "./userReducer";
 import errorReducer from "./errorReducer";
 import favoriteReducer from "./favoriteReducer";
+import watchlistReducer from "./watchlistReducer";
 
 
 
@@ -11,4 +12,5 @@ export default combineReducers({
     user: userReducer,
     error: errorReducer,
     following: favoriteReducer,
+    watched: watchlistReducer,
 });

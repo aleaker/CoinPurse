@@ -3,6 +3,7 @@ import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 import Landing from "./components/Landing/landingContainer";
 import Home from "./components/Home/homeContainer";
 import Navbar from "./components/Navbar/navbarContainer";
+import Watchlist from "./components/Watchlist/watchlistContainer";
 import { useSelector, useDispatch } from "react-redux";
 import { isLoged, fetchUser } from "../Store/actions/userActions";
 
@@ -13,7 +14,6 @@ export default function Main() {
 
   useEffect(() => {
     dispatch(fetchUser());
-    console.log(history)
   }, []);
 
  
@@ -25,6 +25,7 @@ export default function Main() {
       <Switch>
         <Route exact path="/" history={history}  component={Landing} />
         <Route exact path="/home" history={history} component={Home} />
+        <Route exact path="/watchlist" history={history} component={Watchlist}/>
       </Switch>
     </div>
   );

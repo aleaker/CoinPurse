@@ -5,7 +5,7 @@ const Favorite = require("./favorite")
 
 class User extends S.Model {}
 
-//api.coincap.io/v2/assets?ids=bitcoin,ethereum multiples monedas
+
 
 User.init(
   {

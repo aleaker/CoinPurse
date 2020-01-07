@@ -32,7 +32,6 @@ export default function home() {
 
   const handleDeletFavorite = event => {
     event.preventDefault();
-    console.log("handle",event.target.value)
     dispatch(deleteFavorite(event.target.value))
   };
 

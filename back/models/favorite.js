@@ -9,7 +9,10 @@ Favorite.init({
     },
     symbol:{
         type:S.STRING
-    } 
+    },
+    coinId:{
+        type:S.STRING
+    },
 },{sequelize:db, modelname:'favorite'})
 
 module.exports = Favorite;

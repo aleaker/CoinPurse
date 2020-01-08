@@ -9,7 +9,7 @@ export default function Watchlist() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchMyWatchlist(following));
+    if(following.length)dispatch(fetchMyWatchlist(following));
   }, []);
 
   return (

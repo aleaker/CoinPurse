@@ -23,7 +23,7 @@ export default function singleCoin({ coins, followingArr, handleAddFavorite,hand
           ) : (
             <button
               onClick={event => handleAddFavorite(event)}
-              value={[coin.name, coin.symbol]}
+              value={[coin.name, coin.symbol, coin.id]}
             >
               Follow
             </button>

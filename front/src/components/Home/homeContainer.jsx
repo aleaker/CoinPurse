@@ -20,7 +20,7 @@ export default function home() {
     useEffect(() => {
       dispatch(fetchCoins());
       dispatch(fetchFavorites());
-      dispatch(setMyWatchlist([]))
+      dispatch(setMyWatchlist([]));
       const reloader = setInterval(() => dispatch(fetchCoins()), 10000);
       
       return () => clearInterval(reloader);

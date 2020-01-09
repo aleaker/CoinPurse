@@ -15,7 +15,6 @@ export const addFavorite = coinObj => dispatch =>
   });
 
 export const deleteFavorite = coinName => dispatch => {
-  console.log(coinName);
   axios
     .delete("api/favorites/deleteFavorite", { data: { coinName } })
     .then(answ=>answ.status== 204 ?  dispatch(fetchFavorites()):console.log("Error on delete"));

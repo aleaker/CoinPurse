@@ -42,12 +42,14 @@ export default function home() {
   return (
     <div>
       {coins.length ? (
+        coins.map(coin=>
         <SingleCoin
-          coins={coins}
+          coin={coin}
+          key={coin.symbol}
           followingArr={followingArr}
           handleAddFavorite={handleAddFavorite}
           handleDeletFavorite={handleDeletFavorite}
-        />
+        />)
       ) : (
         <p>HODL a SEC, loading...</p>
       )}

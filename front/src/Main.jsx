@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar/navbarContainer";
 import Watchlist from "./components/Watchlist/watchlistContainer";
 import { useSelector, useDispatch } from "react-redux";
 import { isLoged, fetchUser } from "../Store/actions/userActions";
+import "../../back/public/style.css"
 
 export default function Main() {
   const user = useSelector(state => state.user);
@@ -19,8 +20,9 @@ export default function Main() {
  
 
   return (
-    <div>
-      <Navbar  history={history} user={user} />
+    <div className="main fill-window">
+    {user.id?
+      <Navbar  history={history} user={user} />:""}
 
       <Switch>
         <Route exact path="/" history={history}  component={Landing} />

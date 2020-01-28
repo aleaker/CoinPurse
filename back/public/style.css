@@ -1,0 +1,112 @@
+.registerDiv {
+  background-color: #ffbb00;
+}
+
+/* ----------------- LOGIN ---------------*/
+
+.loginBox {
+  background-color: #efefef; /*8e8e8e*/
+  display: flex;
+  justify-content: center;
+  align-content: space-between;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+.loginBox > * {
+  margin: 1rem 5rem;
+}
+
+.loginLogo {
+  margin-top: 12rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 20rem;
+  max-height: 22rem;
+}
+
+.loginTitle {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 8rem;
+  color: #ffbb00;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 3.5rem;
+}
+
+.loginForm {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 0;
+}
+
+.loginInput {
+  border: 0;
+  border-radius: 3rem;
+  flex: 6rem;
+  margin: 1rem;
+  background-color: #ffffff;
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 3rem;
+}
+
+.loginButton {
+  border: 0;
+  border-radius: 3rem;
+  height: 6.125rem;
+  background-image: linear-gradient(to right, #ffc014, #ffbb00);
+  text-align: center;
+  font-size: 3rem;
+  margin: 6rem;
+  margin-top: 0;
+}
+
+.loginErrors {
+  margin-top: 0;
+  margin-bottom: 152px;
+  font-size: 3rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.resetPassOrRegisterBox {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.resetOrRegButton{
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  font-size: 2rem;
+}
+
+.resetOrRegDivition{
+  font-size: 2rem;
+  margin-top: 0;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+
+}
+
+/* ---------------------------------------------------- */
+
+.fill-window {
+  height: 100%;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.body {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #efefef;
+}

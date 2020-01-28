@@ -1,5 +1,10 @@
 import axios from "axios";
 
+// export const test= slug => 
+//   axios.get(`https://pro-api.coinmarketcap.com/v1/cryptocurrency/info?slug=${slug}`).then(res=>console.log(res.data.logo))
+//    ;
+
+
 export const setFavorites = favorites => dispatch =>
   dispatch({ type: "SET_FAVORITES", favorites });
 

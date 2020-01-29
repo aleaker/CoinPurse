@@ -8,9 +8,9 @@ import { setError } from "../../../Store/actions/errorActions";
 
 export default function landing({ history }) {
   const usernameError = useSelector(state => state.error);
-  const [state, setState] = useState({ username: "", password: "", email: "" });
-  const [wrongData, setWrongData] = useState();
   const [registerError, setRegisterError] = useState();
+  const [wrongData, setWrongData] = useState();
+  const [state, setState] = useState({ username: "", password: "", email: "" });
   const [registered, setRegistered] = useState(true);
   const dispatch = useDispatch();
   const validateEmail = email => {
@@ -35,9 +35,9 @@ export default function landing({ history }) {
       .catch(err => setWrongData("incorrect username or password"));
   };
 
-  const handleGoToRegister = e => {
+  const handleGoToRegOrSign = e => {
     e.preventDefault();
-    setRegistered(false);
+    setRegistered(!registered);
   };
 
   const handleRegister = e => {
@@ -66,7 +66,7 @@ export default function landing({ history }) {
           handleChange={handleChange}
           handleSubmit={handleLogin}
           wrongData={wrongData}
-          handleGoToRegister={handleGoToRegister}
+          handleGoToRegOrSign={handleGoToRegOrSign}
         />
       ) : (
         <Register
@@ -74,6 +74,7 @@ export default function landing({ history }) {
           handleSubmit={handleRegister}
           registerError={registerError}
           usernameError={usernameError}
+          handleGoToRegOrSign={handleGoToRegOrSign}
         />
       )}
     </div>

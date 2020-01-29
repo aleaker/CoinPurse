@@ -4,23 +4,23 @@ export default function landingLogin({
   handleChange,
   handleSubmit,
   wrongData,
-  handleGoToRegister
+  handleGoToRegOrSign
 }) {
   return (
-    <div className="loginBox fill-window">
-      <img src="/logo.png" className="loginLogo" />
-      <h2 className="loginTitle">COIN PURSE</h2>
-      <form className="loginForm">
+    <div className="signBox fill-window">
+      <img src="/logo.png" className="signLogo" />
+      <h2 className="signTitle">COIN PURSE</h2>
+      <form className="signForm">
         <input
           name="username"
-          className="loginInput"
+          className="signInput"
           placeholder="Username"
           onChange={e => handleChange(e)}
         />
 
         <input
           name="password"
-          className="loginInput"
+          className="signInput"
           placeholder="Password"
           type="password"
           onChange={e => handleChange(e)}
@@ -28,10 +28,10 @@ export default function landingLogin({
       </form>
       {/* <p className="loginForm loginErrors"> */}
         {wrongData ? (
-          <p className="loginErrors">{wrongData}</p>
+          <p className="signErrors">{wrongData}</p>
         ) : (
-          <button className="loginButton" onClick={e => handleSubmit(e)}>
-            Log In
+          <button className="signButton" onClick={e => handleSubmit(e)}>
+            Sign in
           </button>
         )}
       
@@ -39,7 +39,7 @@ export default function landingLogin({
       <div className="resetPassOrRegisterBox">
         <button className="resetOrRegButton">Reset password</button>
         <p className="resetOrRegDivition">|</p>
-        <button className="resetOrRegButton" onClick={e => handleGoToRegister(e)}>Register</button>
+        <button className="resetOrRegButton" onClick={e => handleGoToRegOrSign(e)}>Register</button>
       </div>
     </div>
   );

@@ -4,52 +4,54 @@ export default function landingRegister({
   handleChange,
   handleSubmit,
   registerError,
-  usernameError
+  usernameError,
+  handleGoToRegOrSign
 }) {
   return (
-    <div className="registerDiv">
-      <form>
-        <label>
-          Username:
-          <input
-            required
-            name="registerUsername"
-            onChange={e => handleChange(e)}
-          />
-        </label>
-        <label>
-          Email:
-          <input
-            name="email"
-            placeholder="optional"
-            onChange={e => handleChange(e)}
-          />
-        </label>
-        <label>
-          Password:
-          <input
-            required
-            name="registerPassword"
-            type="password"
-            onChange={e => handleChange(e)}
-          />
-        </label>
-        <label>
-          Confirm password:
-          <input
-            required
-            name="confirmPassword"
-            type="password"
-            onChange={e => handleChange(e)}
-          />
-        </label>
+    <div className="signBox fill-window">
+      <img src="/logo.png" className="signLogo" />
+      <h2 className="signTitle">COIN PURSE</h2>
+      <form className="signForm">
+        <input
+          className="signInput"
+          required
+          placeholder="Username"
+          name="registerUsername"
+          onChange={e => handleChange(e)}
+        />
+
+        <input
+          className="signInput"
+          name="email"
+          placeholder="Email (optional)"
+          onChange={e => handleChange(e)}
+        />
+        <input
+          className="signInput"
+          required
+          placeholder="Password"
+          name="registerPassword"
+          type="password"
+          onChange={e => handleChange(e)}
+        />
+
+        <input
+          className="signInput"
+          required
+          placeholder="Confirm password"
+          name="confirmPassword"
+          type="password"
+          onChange={e => handleChange(e)}
+        />
       </form>
-      {registerError || usernameError ? (
-        <p>{registerError || usernameError}</p>
+      {registerError || usernameError.length ? (
+        <p className="signErrors">{registerError || usernameError}</p>
       ) : (
-        ""
+        <button className="signButton" onClick={e => handleSubmit(e)}>Register</button>
       )}
-      <button onClick={e => handleSubmit(e)}>Register</button>
+      <div className="resetPassOrRegisterBox">
+        <button className="resetOrRegButton" onClick={e => handleGoToRegOrSign(e)}>Sign in</button>
+      </div>
     </div>
   );
 }

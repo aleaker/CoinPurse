@@ -11,7 +11,7 @@ export default function landingRegister({
     <div className="signBox fill-window">
       <img src="/logo.png" className="signLogo" />
       <h2 className="signTitle">COIN PURSE</h2>
-      <form className="signForm">
+      <form className="signForm regForm">
         <input
           className="signInput"
           required
@@ -45,11 +45,11 @@ export default function landingRegister({
         />
       </form>
       {registerError || usernameError.length ? (
-        <p className="signErrors">{registerError || usernameError}</p>
+        <p className="signErrors regErrors">{registerError || usernameError}</p>
       ) : (
         <button className="signButton" onClick={e => handleSubmit(e)}>Register</button>
       )}
-      <div className="resetPassOrRegisterBox">
+      <div className="resetPassOrRegisterBox registerBox">
         <button className="resetOrRegButton" onClick={e => handleGoToRegOrSign(e)}>Sign in</button>
       </div>
     </div>

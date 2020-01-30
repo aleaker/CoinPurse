@@ -18,11 +18,15 @@ export default function landing({ history }) {
     return re.test(email);
   };
 
-  const handleChange = e => {
-    e.persist();
+  const resetErrors = () => {
     setWrongData();
     setRegisterError();
     dispatch(setError(""));
+  };
+
+  const handleChange = e => {
+    e.persist();
+    resetErrors();
     setState(state => ({ ...state, [e.target.name]: e.target.value }));
   };
 
@@ -37,6 +41,7 @@ export default function landing({ history }) {
 
   const handleGoToRegOrSign = e => {
     e.preventDefault();
+    resetErrors();
     setRegistered(!registered);
   };
 

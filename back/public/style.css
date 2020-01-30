@@ -15,17 +15,17 @@
 .signLogo {
 
 position: relative;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 5rem;
-  max-width: 8rem;
-  max-height: 9rem;
- 
+display: block;
+margin-left: auto;
+margin-right: auto;
+margin-top: 5rem;
+max-width: 8rem;
+max-height: 9rem;
+
 }
 
 .signTitle {
- 
+  
   display: block;
   min-width: 200px;
   margin-left: auto;
@@ -34,7 +34,7 @@ position: relative;
   color: #ffbb00;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 2rem;
-
+  
 }
 /* @media only screen and (min-width: 768px){
   .signTitle{
@@ -51,7 +51,7 @@ position: relative;
 }
 
 /* .regForm{
-
+  
 } */
 
 .signInput {
@@ -62,14 +62,15 @@ position: relative;
   background-color: #ffffff;
   text-align: center;
   font-size: 1.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 2rem;;
+  opacity: 0.8;
 }
 
 .signButton {
   justify-content: center;
   flex: 2rem;
-  min-height: 2rem;
-  max-height: 2rem;
+  min-height: 2.875rem;
+  max-height: 3rem;
   padding-left: 0;
   padding-right: 0;
   border: 0;
@@ -88,25 +89,26 @@ position: relative;
   font-size: 1.4rem;
   text-align: center;
   box-sizing: border-box;
-  min-height: 1.938rem;
+  min-height: 3rem;
   max-width: 80%;
   margin-left: auto;
   margin-right: auto;
 }
 
 .regErrors{
-height: 2.563rem;
+  min-height: 2.938rem;
+height: 2.938rem;
 }
 
 .resetPassOrRegisterBox {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-   margin-bottom: 18.5rem; 
+   margin-bottom: 11.5rem; 
    max-height: 0.938rem
 }
 .registerBox{
-margin-bottom: 9.313rem;
+margin-bottom: 2.313rem;
 }
 
 .resetOrRegButton {

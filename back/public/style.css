@@ -1,31 +1,46 @@
+.fill-window {
+  height: 100%;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.body {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #efefef;
+}
+
+
 /* ----------------- SIGN ---------------*/
 
 .signBox {
-  background-color: #efefef; /*8e8e8e*/
+  background-color: #efefef;
   display: flex;
   justify-content: center;
   align-content: flex-start space-between;
   flex-direction: column;
   flex-wrap: nowrap;
 }
+
+
+
 .signBox > * {
   margin: 1rem 2.5rem;
 }
 
 .signLogo {
-
-position: relative;
-display: block;
-margin-left: auto;
-margin-right: auto;
-margin-top: 5rem;
-max-width: 8rem;
-max-height: 9rem;
-
+  position: relative;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5rem;
+  max-width: 8rem;
+  max-height: 9rem;
 }
 
 .signTitle {
-  
   display: block;
   min-width: 200px;
   margin-left: auto;
@@ -34,25 +49,22 @@ max-height: 9rem;
   color: #ffbb00;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 2rem;
-  
 }
-/* @media only screen and (min-width: 768px){
+
+@media screen and (min-width: 768px) { 
+  
   .signTitle{
-    color: red;
+    color: red !important;
   }
-} */
+}
+
 .signForm {
   display: flex;
   justify-content: center;
   flex-direction: column;
   margin-bottom: 0;
   margin-top: 0;
-  /* margin-top: 5rem; */
 }
-
-/* .regForm{
-  
-} */
 
 .signInput {
   border: 0;
@@ -62,9 +74,10 @@ max-height: 9rem;
   background-color: #ffffff;
   text-align: center;
   font-size: 1.5rem;
-  margin-bottom: 2rem;;
+  margin-bottom: 2rem;
   opacity: 0.8;
 }
+
 
 .signButton {
   justify-content: center;
@@ -95,20 +108,20 @@ max-height: 9rem;
   margin-right: auto;
 }
 
-.regErrors{
+.regErrors {
   min-height: 2.938rem;
-height: 2.938rem;
+  height: 2.938rem;
 }
 
 .resetPassOrRegisterBox {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-   margin-bottom: 11.5rem; 
-   max-height: 0.938rem
+  margin-bottom: 11.5rem;
+  max-height: 0.938rem;
 }
-.registerBox{
-margin-bottom: 2.313rem;
+.registerBox {
+  margin-bottom: 2.313rem;
 }
 
 .resetOrRegButton {
@@ -125,18 +138,5 @@ margin-bottom: 2.313rem;
   margin-right: 0.375rem;
 }
 
-/*------------------------------------------------------*/
-.fill-window {
-  height: 100%;
-  position: absolute;
-  left: 0;
-  width: 100%;
-  overflow: hidden;
-}
 
-.body {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  background-color: #efefef;
-}
+/*------------------------------------------------------*/

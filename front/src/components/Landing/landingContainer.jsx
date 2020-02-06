@@ -65,7 +65,10 @@ export default function landing({ history }) {
   };
 
   return (
-    <div>
+    <div className="signContainer">
+    <div className="desktopLeftSide">
+<img src="/btcBlack.jpg" className="desktopLeftImg"/>
+    </div>
       {registered ? (
         <Login
           handleChange={handleChange}

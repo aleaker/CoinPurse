@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchCoins } from "../../../Store/actions/homeActions";
+import { fetchCoins } from "../../../Store/actions/coinsActions";
 import SingleCoin from "./singleCoin";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -7,23 +7,26 @@ import {
   deleteFavorite,
   fetchFavorites
 } from "../../../Store/actions/favoritesActions";
-import { setMyWatchlist } from "../../../Store/actions/watchlistActions"
-
+import { setMyWatchlist } from "../../../Store/actions/watchlistActions";
 
 export default function home() {
   const dispatch = useDispatch();
   let coins = useSelector(state => state.coins);
+
   let followingArr = useSelector(state => state.following).map(
     fav => fav.symbol
-    );
-    
-    useEffect(() => {
+  );
+
+  useEffect(() => {
+    dispatch(fetchCoins());
+    dispatch(fetchFavorites());
+    dispatch(setMyWatchlist([]));
+
+    const reloader = setInterval(() => {
+
       dispatch(fetchCoins());
-      dispatch(fetchFavorites());
-      dispatch(setMyWatchlist([]));
-      const reloader = setInterval(() => dispatch(fetchCoins()), 10000);
-      
-      return () => clearInterval(reloader);
+    }, 10000);
+    return () => clearInterval(reloader);
   }, []);
 
   const handleAddFavorite = event => {
@@ -36,20 +39,21 @@ export default function home() {
 
   const handleDeletFavorite = event => {
     event.preventDefault();
-    dispatch(deleteFavorite(event.target.value))
+    dispatch(deleteFavorite(event.target.value));
   };
 
   return (
     <div>
       {coins.length ? (
-        coins.map(coin=>
-        <SingleCoin
-          coin={coin}
-          key={coin.symbol}
-          followingArr={followingArr}
-          handleAddFavorite={handleAddFavorite}
-          handleDeletFavorite={handleDeletFavorite}
-        />)
+        coins.map(coin => (
+          <SingleCoin
+            coin={coin}
+            key={coin.symbol}
+            followingArr={followingArr}
+            handleAddFavorite={handleAddFavorite}
+            handleDeletFavorite={handleDeletFavorite}
+          />
+        ))
       ) : (
         <p>HODL a SEC, loading...</p>
       )}

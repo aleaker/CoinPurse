@@ -5,21 +5,21 @@ import { setFavorites } from "../../../Store/actions/favoritesActions";
 import { fetchSearchedCoins } from "../../../Store/actions/coinsActions";
 import SearchBar from "../Navbar/searchBar.jsx";
 import axios from "axios"
+import { setSearched } from "../../../Store/actions/searchActions";
 
 
 export default function NavbarContainer({ user, history }) {
 
   const valueRef = React.useRef();
   const dispatch = useDispatch();
+  const list = useSelector(state=>state.list)
   const [searchText, setSearchText] = useState();
   const [haveTheList, setHaveTheList] = useState(false);
 
 
 
-
-
- // const coins = useSelector(state=>state.coins); //i uso coins el componente se vuelve a
-  //renderizar cada 10 sgs por el fetchCoins() del componente home
+// const coins = useSelector(state=>state.coins); //i uso coins el componente se vuelve a
+//renderizar cada 10 sgs por el fetchCoins() del componente home
 
   useEffect(() => {
     console.log("renderiza2")
@@ -39,8 +39,8 @@ export default function NavbarContainer({ user, history }) {
 
   const handleSearch = e => {
     e.preventDefault();
-    console.log(searchText)
-    dispatch(fetchSearchedCoins(searchText))
+    console.log(searchText);
+    dispatch(setSearched(searchText,list));
 
 //    console.log(coins.map(coin => coin.id));
 

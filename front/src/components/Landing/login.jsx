@@ -22,7 +22,7 @@ export default function landingLogin({
           name="password"
           className="signInput"
           placeholder="Password"
-          type="password"
+          type="password" 
           onChange={e => handleChange(e)}
         />
       </form>

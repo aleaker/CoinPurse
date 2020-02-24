@@ -5,6 +5,7 @@ import errorReducer from "./errorReducer";
 import favoriteReducer from "./favoriteReducer";
 import watchlistReducer from "./watchlistReducer";
 import searchReducer from "./searchReducer"
+import listReducer from "./listReducer"
 
 
 
@@ -15,4 +16,5 @@ export default combineReducers({
     following: favoriteReducer,
     watched: watchlistReducer,
     searched: searchReducer,
+    list: listReducer
 });

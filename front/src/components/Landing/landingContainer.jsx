@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
+
 import { Link } from "react";
 import Login from "./login";
 import Register from "./register";
@@ -7,12 +9,20 @@ import { registerUser, loginUser } from "../../../Store/actions/userActions";
 import { setError } from "../../../Store/actions/errorActions";
 
 export default function landing({ history }) {
+//  const user = useSelector(state => state.user);
   const usernameError = useSelector(state => state.error);
   const [registerError, setRegisterError] = useState();
   const [wrongData, setWrongData] = useState();
   const [state, setState] = useState({ username: "", password: "", email: "" });
   const [registered, setRegistered] = useState(true);
   const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   if (user.id) {
+  //     return <Redirect to="/home" />;
+  //   }
+  // }, []);
+
   const validateEmail = email => {
     var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     return re.test(email);

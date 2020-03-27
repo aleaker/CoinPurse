@@ -23,6 +23,7 @@ export default function NavbarContainer({ user, history }) {
 
   useEffect(() => {
     console.log("renderiza2")
+  
     //!haveTheList && setHaveTheList(true)
   }, []);
 

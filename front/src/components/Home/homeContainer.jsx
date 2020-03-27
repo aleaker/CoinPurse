@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
-import {
-  fetchCoins,
-  fetchSearchedCoins
-} from "../../../Store/actions/coinsActions";
-import SingleCoin from "./singleCoin";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addFavorite,
-  deleteFavorite,
-  fetchFavorites
-} from "../../../Store/actions/favoritesActions";
-import { setMyWatchlist } from "../../../Store/actions/watchlistActions";
 import { setList } from "../../../Store/actions/listActions";
+import { setMyWatchlist } from "../../../Store/actions/watchlistActions";
+import {fetchCoins,fetchSearchedCoins} from "../../../Store/actions/coinsActions";
+import {addFavorite,deleteFavorite,fetchFavorites} from "../../../Store/actions/favoritesActions";
+import SingleCoin from "./singleCoin";
+
+
+function importAll(r) {
+  let icons = {};
+  r.keys().map((item, index) => {icons[item.replace('./', '')] = r(item); });
+  return icons;
+}
+const icons = importAll(require.context("../../../node_modules/cryptocurrency-icons/32@2x/icon/", false, /\.png$/));
+//  './images', false, '/\.png/'));
 
 export default function home() {
   const dispatch = useDispatch();
@@ -21,19 +23,8 @@ export default function home() {
     fav => fav.symbol
   );
 
-  const list = useSelector(state => state.list);
-  const [haveList, setHaveList] = useState(false);
-
-  const generateListForSearch = () => {
-    const listForSearch = [];
-    coins.map(coin => {
-      listForSearch.push(coin.id, coin.symbol.toLowerCase());
-    });
-    dispatch(setList(listForSearch));
-    console.log(listForSearch, list);
-  };
-
   useEffect(() => {
+    console.log("sss", icons["pivx@2x.png"]);
     //  dispatch(fetchCoins());
     if (!followingArr.length) dispatch(fetchFavorites());
     list.length ? console.log("your list is" + list) : generateListForSearch();
@@ -53,6 +44,20 @@ export default function home() {
     return () => clearInterval(reloader);
   }, [coins]);
 
+  //----------- search bar function------------------
+  const list = useSelector(state => state.list);
+  const [haveList, setHaveList] = useState(false);
+
+  const generateListForSearch = () => {
+    const listForSearch = [];
+    coins.map(coin => {
+      listForSearch.push(coin.id, coin.symbol.toLowerCase());
+    });
+    dispatch(setList(listForSearch));
+    console.log(listForSearch, list);
+  };
+
+  //--------------event handlers-----------------------
   const handleAddFavorite = event => {
     event.preventDefault();
     let coinArr = event.target.value.split(",");
@@ -76,6 +81,7 @@ export default function home() {
             followingArr={followingArr}
             handleAddFavorite={handleAddFavorite}
             handleDeletFavorite={handleDeletFavorite}
+            icon={icons[`${coin.symbol.toLowerCase()}@2x.png`]}
           />
         ))
       ) : (

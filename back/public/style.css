@@ -186,4 +186,24 @@
   }
 }
 
-/*------------------------------------------------------*/
+/*------------------------HOME------------------------------*/
+
+/*-----------------------WATCHLIST-------------------------*/
+.singleWatchedCoin{
+  background-color: #ffbb00;
+  
+}
+
+/*-------------------------SINGLECOIN--------------------------*/
+
+.singleCoinContainer{
+  background-color: #ffbb00;
+  border-radius: 3rem;
+}
+.greenPercent{
+color: green
+}
+
+.redPercent{
+color: red
+}

@@ -8,7 +8,7 @@ export default function landingLogin({
 }) {
   return (
     <div className="signBox fill-window">
-      <img src="/logo.png" className="signLogo" />
+      <img src="/bitcoin.png" className="signLogo" />
       <h2 className="signTitle">COIN PURSE</h2>
       <form className="signForm">
         <input

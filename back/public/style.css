@@ -62,6 +62,7 @@
   flex-direction: column;
   margin-bottom: 0;
   margin-top: 0;
+  color: #313638;
 }
 
 .signInput {
@@ -74,6 +75,7 @@
   font-size: 1.5rem;
   margin-bottom: 2rem;
   opacity: 0.8;
+  color: #313638;
 }
 
 .signButton {
@@ -90,12 +92,13 @@
   margin: 3rem;
   margin-bottom: 0.5rem;
   margin-top: 0;
+  color: #313638;
   /* background-image: linear-gradient(to right, #ffc014, #ffbb00); */
   background-color: #ffbb00;
 }
 .signButton:hover {
   color: #ffbb00;
-  background-color: black;
+  background-color: #313638;
 }
 
 .signErrors {
@@ -108,11 +111,13 @@
   max-width: 80%;
   margin-left: auto;
   margin-right: auto;
+  color: #313638;
 }
 
 .regErrors {
   min-height: 2.938rem;
   height: 2.938rem;
+  color: #313638;
 }
 
 .resetPassOrRegisterBox {
@@ -132,6 +137,7 @@
   padding: 0 !important;
   font-size: 0.8rem;
   font-weight: bold;
+  color: #313638;
 }
 
 .resetOrRegButton:hover {
@@ -143,6 +149,7 @@
   margin-top: 0;
   margin-left: 0.375rem;
   margin-right: 0.375rem;
+  color: #313638;
 }
 
 .signInput:focus,
@@ -151,14 +158,13 @@
   outline: none;
 }
 
-.signInput:focus::placeholder{
-  
+.signInput:focus::placeholder {
   color: transparent;
 }
 
 @media screen and (min-width: 768px) {
   .body {
-    background-color: black;
+    background-color: #efefef;
   }
 
   /* .desktopLeftSide {
@@ -189,21 +195,103 @@
 /*------------------------HOME------------------------------*/
 
 /*-----------------------WATCHLIST-------------------------*/
-.singleWatchedCoin{
+.singleWatchedCoin {
   background-color: #ffbb00;
-  
 }
 
 /*-------------------------SINGLECOIN--------------------------*/
 
-.singleCoinContainer{
-  background-color: #ffbb00;
-  border-radius: 3rem;
-}
-.greenPercent{
-color: green
+.singleCoinContainer {
+  display: flex;
+
+  flex-direction: column;
+
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  background-color: #e2e2e2;
+  margin-bottom: 0.5rem;
+  border-radius: 1rem;
 }
 
-.redPercent{
-color: red
+.singleCoinUpperRow {
+  display: flex;
+  justify-content: space-between;
+}
+
+.singleCoinUpperRow>*{
+  margin-top: 0.8rem;
+}
+
+.singleCoinLowerRow {
+  display: flex;
+
+}
+
+/* .singleCoinContainer > * {
+  flex-basis: 0;
+  flex-grow: 1;
+} */
+.greenPercent {
+  width: 4rem;
+  margin-right: 0.8rem;
+  color: green;
+}
+
+.redPercent {
+  width: 4rem;
+  margin-right: 0.8rem;
+  color: red;
+}
+
+.singleCoinIcon {
+  margin-top: 0.8rem;
+  margin-left: 0.8rem;
+  max-width: 3rem;
+  max-height: 3rem;
+}
+
+.singleCoinNameAndSymbolBox {
+}
+
+.singleCoinName {
+  width: 7rem;
+  font-size: 0.8rem;
+  margin-top: 0;
+}
+
+.singleCoinSymbol {
+  margin-top: 0rem;
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
+.singleCoinPrice {
+  min-width: 4rem;
+}
+
+.singleCoinMarketCap {
+  display: none;
+}
+
+.singleCoinAdd {
+  flex-grow: 1;
+  border-bottom-left-radius: 1rem;
+  border: 0;
+  background-color: #ffbb00;
+}
+
+.singleCoinFollow {
+  border: 0;
+  border-left:solid black;
+  flex-grow: 1;
+  border-bottom-right-radius: 1rem;
+  background-color: #ffbb00;
+}
+
+.singleCoinUnfollow {
+  border: 0;
+  border-left:solid black;
+  flex-grow: 1;
+  border-bottom-right-radius: 1rem;
+  background-color: #ffbb00;
 }

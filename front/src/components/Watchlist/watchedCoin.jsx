@@ -12,3 +12,5 @@ export default function WatchedCoin({ coin,handleDeletFavorite }) {
     </div>
   );
 }
+
+

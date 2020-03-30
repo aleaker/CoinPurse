@@ -2,17 +2,31 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setList } from "../../../Store/actions/listActions";
 import { setMyWatchlist } from "../../../Store/actions/watchlistActions";
-import {fetchCoins,fetchSearchedCoins} from "../../../Store/actions/coinsActions";
-import {addFavorite,deleteFavorite,fetchFavorites} from "../../../Store/actions/favoritesActions";
+import {
+  fetchCoins,
+  fetchSearchedCoins
+} from "../../../Store/actions/coinsActions";
+import {
+  addFavorite,
+  deleteFavorite,
+  fetchFavorites
+} from "../../../Store/actions/favoritesActions";
 import SingleCoin from "./singleCoin";
-
 
 function importAll(r) {
   let icons = {};
-  r.keys().map((item, index) => {icons[item.replace('./', '')] = r(item); });
+  r.keys().map((item, index) => {
+    icons[item.replace("./", "")] = r(item);
+  });
   return icons;
 }
-const icons = importAll(require.context("../../../node_modules/cryptocurrency-icons/32@2x/icon/", false, /\.png$/));
+const icons = importAll(
+  require.context(
+    "../../../node_modules/cryptocurrency-icons/32@2x/icon/",
+    false,
+    /\.png$/
+  )
+);
 //  './images', false, '/\.png/'));
 
 export default function home() {
@@ -77,6 +91,11 @@ export default function home() {
         coins.map(coin => (
           <SingleCoin
             coin={coin}
+            priceUsd={parseFloat(coin.priceUsd).toFixed(
+              coin.priceUsd < 0.01 ? 4 : 2
+            )}
+            changePercent24Hr={parseFloat(coin.changePercent24Hr).toFixed(2)}
+            marketCapUsd={parseFloat(coin.marketCapUsd / 1000000000).toFixed(2)}
             key={coin.symbol}
             followingArr={followingArr}
             handleAddFavorite={handleAddFavorite}

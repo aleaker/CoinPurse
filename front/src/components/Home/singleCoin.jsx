@@ -5,7 +5,10 @@ export default function singleCoin({
   followingArr,
   handleAddFavorite,
   handleDeletFavorite,
-  icon
+  icon,
+  priceUsd,
+  changePercent24Hr,
+  marketCapUsd
 }) {
   // useEffect(()=>{
 
@@ -13,30 +16,40 @@ export default function singleCoin({
 
   return (
     <div value={coin.name} className="singleCoinContainer">
-
-      <img src={icon} />
-      <p>{coin.name}</p>
-      <p>{coin.symbol}</p>
-      <p>$ {parseFloat(coin.priceUsd).toFixed(2)}</p>
-      <p
-        className={coin.changePercent24Hr >= 0 ? "greenPercent" : "redPercent"}
-      >
-        {parseFloat(coin.changePercent24Hr).toFixed(2)} %
-      </p>
-      <p>$ {parseFloat(coin.marketCapUsd / 1000000000).toFixed(2)}B</p>
-      <button>Add</button>
-      {followingArr.includes(coin.symbol) ? (
-        <button onClick={event => handleDeletFavorite(event)} value={coin.name}>
-          Unfollow
-        </button>
-      ) : (
-        <button
-          onClick={event => handleAddFavorite(event)}
-          value={[coin.name, coin.symbol, coin.id]}
-        >
-          Follow
-        </button>
-      )}
+      <div className="singleCoinUpperRow">
+        <img src={icon} className="singleCoinIcon" />
+        <div className="singleCoinNameAndSymbolBox">
+          <p className="singleCoinSymbol">{coin.symbol}</p>
+          <p className="singleCoinName">{coin.name}</p>
+        </div>
+        
+          <p className="singleCoinPrice">$ {priceUsd}</p>
+          <p className={changePercent24Hr >= 0 ? "greenPercent" : "redPercent"}>
+            {changePercent24Hr} %
+          </p>
+      
+        <p className="singleCoinMarketCap">$ {marketCapUsd}B</p>
+      </div>
+      <div className="singleCoinLowerRow">
+        <button className="singleCoinAdd">Add</button>
+        {followingArr.includes(coin.symbol) ? (
+          <button
+            onClick={event => handleDeletFavorite(event)}
+            value={coin.name}
+            className="singleCoinUnfollow"
+          >
+            Unfollow
+          </button>
+        ) : (
+          <button
+            onClick={event => handleAddFavorite(event)}
+            value={[coin.name, coin.symbol, coin.id]}
+            className="singleCoinFollow"
+          >
+            Follow
+          </button>
+        )}
+      </div>
     </div>
   );
 }

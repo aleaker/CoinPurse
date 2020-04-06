@@ -87,6 +87,7 @@ export default function home() {
 
   return (
     <div>
+    <div className="homeUpperBox"></div>
       {coins.length ? (
         coins.map(coin => (
           <SingleCoin

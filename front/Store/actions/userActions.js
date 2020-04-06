@@ -3,13 +3,12 @@ import {setError} from "./errorActions"
 
 const setUser = user => dispatch => dispatch({ type: "SET_USER", user });
 
-
 export const fetchUser = ()=>dispatch=>axios.get('/api/user/loggedUser').then(res=>res.data).then(user=>dispatch(setUser(user)))
 
 export const loginUser = ({ username, password }) => dispatch =>
   axios
     .post("/api/user/login", { username, password })
-    .then(res => res.data)
+    .then(res => res.data) 
     .then(user => {
       dispatch(setUser(user));
     })

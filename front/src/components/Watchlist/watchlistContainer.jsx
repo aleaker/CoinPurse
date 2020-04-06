@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useLayoutEffect } from "react";
+import React, { useEffect, useState, useLayoutEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   fetchMyWatchlist,
@@ -16,12 +16,15 @@ export default function Watchlist() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchFavorites()).then(({favorites})=>{following.length?dispatch(fetchMyWatchlist(following)):dispatch(fetchMyWatchlist(favorites))});
+    dispatch(fetchFavorites()).then(({ favorites }) => {
+      following.length
+        ? dispatch(fetchMyWatchlist(following))
+        : dispatch(fetchMyWatchlist(favorites));
+    });
 
     // const reloader = setInterval(() => dispatch(fetchMyWatchlist(following)), 10000);
-      
-    // return () => clearInterval(reloader);
 
+    // return () => clearInterval(reloader);
   }, []);
 
   const handleDeletFavorite = event => {
@@ -36,6 +39,7 @@ export default function Watchlist() {
 
   return (
     <div>
+      <div className="homeUpperBox"></div>
       {watched.length ? (
         watched.map(coin => (
           <WatchedCoin

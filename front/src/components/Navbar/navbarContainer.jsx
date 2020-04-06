@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch, shallowEqual } from "react-redux";
-import { logOutUser } from "../../../Store/actions/userActions";
-import { setFavorites } from "../../../Store/actions/favoritesActions";
-import { fetchSearchedCoins } from "../../../Store/actions/coinsActions";
+import { useSelector, useDispatch } from "react-redux";
 import SearchBar from "../Navbar/searchBar.jsx";
-import axios from "axios";
 import { setSearched } from "../../../Store/actions/searchActions";
 
 export default function NavbarContainer({ user, history }) {
@@ -17,8 +13,6 @@ export default function NavbarContainer({ user, history }) {
   //renderizar cada 10 sgs por el fetchCoins() del componente home
 
   useEffect(() => {
-    console.log("renderiza2");
-
     //!haveTheList && setHaveTheList(true)
   }, []);
 
@@ -38,29 +32,61 @@ export default function NavbarContainer({ user, history }) {
     console.log(searchText);
     dispatch(setSearched(searchText, list));
 
-    //    console.log(coins.map(coin => coin.id));
 
     // crear un array de coins.id y coins.symbol
     // tomar todos los id y sybol que contienen  el searchText y guardarlo en el store como searched
     //fetchSearchedCoins(searchText)
   };
 
+  function animationAdder(path) {
+    let classes = `navbarMenuButtonBar ${
+      history.location.pathname == `/${path}` ? "bottomBarAnimation" : ""
+    }`;
+    return classes;
+  }
+
   return (
     <div className="navbarContainer">
+      {console.log(history.location.pathname)}
       {user.id ? (
         <div className="navbarBox">
-          {/* <p>{user.username}</p> */}
           <SearchBar
             className="searchBar"
             handleChangeSearch={handleChangeSearch}
             handleSearch={handleSearch}
           />
           <div className="navbarMenuRow">
-            <button onClick={event => handleLogout(event)}>Logout</button>
-            <button onClick={() => history.push("/watchlist")}>
-              Watchlist
-            </button>
-            <button onClick={() => history.push("/home")}>Home</button>
+            <div className="navbarMenuButtonBox">
+              <button
+                className="menuButton"
+                onClick={() => history.push("/useroptions")}
+              >
+                {user.username.toUpperCase()}
+              </button>
+              <span className={animationAdder("useroptions")}></span>
+            </div>
+
+            <div className="navbarMenuButtonBox">
+              <button
+                className={"menuButton"}
+                onClick={() => {
+                  history.push("/home");
+                }}
+              >
+                HOME
+              </button>
+              <span className={animationAdder("home")}></span>
+            </div>
+
+            <div className="navbarMenuButtonBox">
+              <button
+                className="menuButton"
+                onClick={() => history.push("/watchlist")}
+              >
+                WATCHLIST
+              </button>
+              <span className={animationAdder("watchlist")}></span>
+            </div>
           </div>
         </div>
       ) : (

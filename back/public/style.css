@@ -4,6 +4,10 @@
   width: 100%;
   overflow: hidden;
 }
+/* .main {
+  display: flex;
+  flex-direction: column;
+} */
 
 .body {
   font-family: "Ubuntu", sans-serif;
@@ -15,6 +19,15 @@
 
 * {
   font-family: "Ubuntu", sans-serif;
+}
+@media screen and (min-width: 768px) {
+  .main {
+    display: flex;
+    justify-content: center;
+  }
+  .body {
+    margin: 0;
+  }
 }
 
 /* ----------------- SIGN ---------------*/
@@ -172,16 +185,6 @@
     background-color: #efefef;
   }
 
-  /* .desktopLeftSide {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    width: 120rem;
-  }
-  .desktopLeftImg{
-    max-width: 100%;
-  } */
-
   .signBox {
     /* justify-content: flex-end; */
     border-radius: 2rem;
@@ -193,7 +196,7 @@
   }
 
   .signLogo {
-    margin-top: 0.938rem;
+    margin-top: 2rem;
   }
 }
 
@@ -201,6 +204,15 @@
 
 .homeUpperBox {
   height: 7.5rem;
+}
+
+@media screen and (min-width: 768px) {
+  .homeUpperBox {
+    height: 0.75rem;
+  }
+  .homeContainer {
+    width: 82%;
+  }
 }
 
 /*-----------------------WATCHLIST-------------------------*/
@@ -212,9 +224,7 @@
 
 .singleCoinContainer {
   display: flex;
-
   flex-direction: column;
-
   margin-left: 0.5rem;
   margin-right: 0.5rem;
   background-color: #e2e2e2;
@@ -326,6 +336,36 @@
   opacity: 0.2;
 }
 
+@media screen and (min-width: 768px) {
+  .singleCoinContainer {
+    flex-direction: row;
+  }
+  .singleCoinUpperRow {
+    width: 100%;
+    margin-right: 3.938rem;
+  }
+
+  .singleCoinNameAndSymbolBox {
+  }
+
+  .singleCoinMarketCap {
+    display: block;
+    margin-top: 1.8rem;
+    width: 5rem;
+  }
+
+  .singleCoinLowerRow {
+    width: 50%;
+    margin-top: 1.2rem;
+    margin-right: 1rem;
+  }
+  .singleCoinAdd,
+  .singleCoinFollow,
+  .singleCoinUnfollow {
+    border-radius: 2rem;
+  }
+}
+
 /*------------------------NAVBAR--------------------------*/
 
 .navbarContainer {
@@ -342,6 +382,14 @@
   display: flex;
   width: 100%;
   flex-direction: column;
+}
+
+.navbarLogo {
+  display: none;
+}
+
+.navbarTitle {
+  display: none;
 }
 
 .searchBarForm {
@@ -371,10 +419,9 @@
   border-bottom-right-radius: 1rem;
   border-top-right-radius: 1rem;
   background-color: #efefef;
-
 }
 
-.searchIcon{
+.searchIcon {
   width: 1.25rem;
   height: 1.25rem;
   color: #313638;
@@ -404,6 +451,10 @@
   color: #ffbb00;
 }
 
+.navbarButtonIcon {
+  display: none;
+}
+
 .bottomBarAnimation {
   animation: forwards expandBar 1s;
   left: 50%;
@@ -426,3 +477,76 @@
   width: 0%;
   margin: 0px auto;
 }
+
+@media screen and (min-width: 768px) {
+  .navbarContainer {
+    position: relative;
+    min-height: 41rem;
+    height: auto;
+    width: 18%;
+  }
+
+  .navbarBox {
+    position: fixed;
+    width: inherit;
+  }
+
+  .navbarLogo {
+    display: block;
+    height: 4.375rem;
+    width: 4.375rem;
+    margin: 1rem auto;
+  }
+  .navbarTitle {
+    display: block;
+    display: block;
+    margin: auto;
+    color: #ffbb00;
+  }
+
+  .navbarMenuRow {
+    flex-direction: column-reverse;
+    
+  }
+
+  .navbarMenuButtonBox {
+    width: 100%;
+    flex-direction: row;
+    margin-bottom:1.375rem;
+    margin-left: 1.25rem;
+
+  }
+
+  .menuButton {
+    text-align: left;
+    padding-bottom: 0;
+    margin-left: 0.75rem;
+  }
+
+  .navbarButtonIcon {
+    display: block;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .navbarMenuButtonBar {
+    display: none;
+  }
+
+  .searchBarForm{
+    width: 100%;
+  }
+
+  .searchBarInput{
+    width: 94%;
+    padding-right: 0;
+  }
+}
+
+/* 
+position: fixed;
+    top: 0;
+    width: 210px;
+    left: 0;
+    background-color: red;
+    height: 100%; */

@@ -86,7 +86,7 @@ export default function home() {
   };
 
   return (
-    <div>
+    <div className="homeContainer">
     <div className="homeUpperBox"></div>
       {coins.length ? (
         coins.map(coin => (

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import SearchBar from "../Navbar/searchBar.jsx";
+import MenuButton from "./menuButton";
 import { setSearched } from "../../../Store/actions/searchActions";
 
 export default function NavbarContainer({ user, history }) {
   const dispatch = useDispatch();
-  const list = useSelector(state => state.list);
+  const list = useSelector((state) => state.list);
   const [searchText, setSearchText] = useState();
   const [haveTheList, setHaveTheList] = useState(false);
 
@@ -22,71 +23,62 @@ export default function NavbarContainer({ user, history }) {
     history.push("/");
   };
 
-  const handleChangeSearch = e => {
+  const handleChangeSearch = (e) => {
     setSearchText(e.target.value.toLowerCase());
     console.log(searchText);
   };
 
-  const handleSearch = e => {
+  const handleSearch = (e) => {
     e.preventDefault();
     console.log(searchText);
     dispatch(setSearched(searchText, list));
-
 
     // crear un array de coins.id y coins.symbol
     // tomar todos los id y sybol que contienen  el searchText y guardarlo en el store como searched
     //fetchSearchedCoins(searchText)
   };
 
-  function animationAdder(path) {
+  const animationAdder=(path)=> {
     let classes = `navbarMenuButtonBar ${
       history.location.pathname == `/${path}` ? "bottomBarAnimation" : ""
     }`;
+    console.log(path)
     return classes;
   }
 
   return (
     <div className="navbarContainer">
-      {console.log(history.location.pathname)}
       {user.id ? (
         <div className="navbarBox">
+          <img src="/bitcoin.png" className="navbarLogo" />
+          <h2 className="navbarTitle">COIN PURSE</h2>
           <SearchBar
             className="searchBar"
             handleChangeSearch={handleChangeSearch}
             handleSearch={handleSearch}
           />
           <div className="navbarMenuRow">
-            <div className="navbarMenuButtonBox">
-              <button
-                className="menuButton"
-                onClick={() => history.push("/useroptions")}
-              >
-                {user.username.toUpperCase()}
-              </button>
-              <span className={animationAdder("useroptions")}></span>
-            </div>
-
-            <div className="navbarMenuButtonBox">
-              <button
-                className={"menuButton"}
-                onClick={() => {
-                  history.push("/home");
-                }}
-              >
-                HOME
-              </button>
-              <span className={animationAdder("home")}></span>
-            </div>
-
-            <div className="navbarMenuButtonBox">
-              <button
-                className="menuButton"
-                onClick={() => history.push("/watchlist")}
-              >
-                WATCHLIST
-              </button>
-              <span className={animationAdder("watchlist")}></span>
-            </div>
+            <MenuButton
+              path={"useroptions"}
+              icon={"user"}
+              buttonTitle={user.username}
+              animationAdder={animationAdder}
+              history={history}
+            />
+            <MenuButton
+              path={"watchlist"}
+              icon={"logo"}
+              buttonTitle={"Watchlist"}
+              animationAdder={animationAdder}
+              history={history}
+            />
+            <MenuButton
+              path={"home"}
+              icon={"home"}
+              buttonTitle={"Home"}
+              animationAdder={animationAdder}
+              history={history}
+            />
           </div>
         </div>
       ) : (

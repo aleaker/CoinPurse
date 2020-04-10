@@ -40,7 +40,7 @@ export default function NavbarContainer({ user, history }) {
 
   const animationAdder=(path)=> {
     let classes = `navbarMenuButtonBar ${
-      history.location.pathname == `/${path}` ? "bottomBarAnimation" : ""
+      history.location.pathname == `/${path}` ? "menuButtonAnimation" : ""
     }`;
     console.log(path)
     return classes;

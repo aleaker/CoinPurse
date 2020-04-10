@@ -218,6 +218,7 @@
 /*-----------------------WATCHLIST-------------------------*/
 .singleWatchedCoin {
   background-color: #ffbb00;
+  width: 58rem;
 }
 
 /*-------------------------SINGLECOIN--------------------------*/
@@ -345,9 +346,6 @@
     margin-right: 3.938rem;
   }
 
-  .singleCoinNameAndSymbolBox {
-  }
-
   .singleCoinMarketCap {
     display: block;
     margin-top: 1.8rem;
@@ -436,46 +434,7 @@
   width: 33.33%;
   display: flex;
   justify-content: space-around;
-  flex-direction: column;
-}
-
-.menuButton {
-  outline: none;
-  padding: 0;
-  border: none;
-  background: none;
-  font-weight: bold;
-  width: 100%;
-  font-size: 1.063rem;
-  padding-bottom: 1rem;
-  color: #ffbb00;
-}
-
-.navbarButtonIcon {
-  display: none;
-}
-
-.bottomBarAnimation {
-  animation: forwards expandBar 1s;
-  left: 50%;
-}
-
-@keyframes expandBar {
-  from {
-    left: 50%;
-    width: 0%;
-  }
-  to {
-    left: 5%;
-    width: 100%;
-  }
-}
-
-.navbarMenuButtonBar {
-  height: 0.25rem;
-  background-color: #ffbb00;
-  width: 0%;
-  margin: 0px auto;
+  flex-direction: column-reverse;
 }
 
 @media screen and (min-width: 768px) {
@@ -506,47 +465,114 @@
 
   .navbarMenuRow {
     flex-direction: column-reverse;
-    
+  }
+
+  .searchBarForm {
+    width: 100%;
+  }
+
+  .searchBarInput {
+    border-radius: 2rem;
+    width: 90%;
+    padding-right: 0;
+    height: 2rem;
+  }
+
+  .searchBarButton {
+    border-radius: 2rem;
+    height: 2rem;
+  }
+}
+
+/*---------------------MENUBUTTON----------------------------*/
+
+.menuButton {
+  outline: none;
+  padding: 0;
+  border: none;
+  background: none;
+  font-weight: bold;
+  width: 100%;
+  font-size: 1.063rem;
+  padding-bottom: 1rem;
+  color: #ffbb00;
+}
+
+.navbarButtonIcon {
+  display: none;
+  margin-right: 0.9rem;
+}
+
+.menuButtonAnimation {
+  animation: forwards selectedMenu 1s;
+  left: 50%;
+}
+
+@keyframes selectedMenu {
+  from {
+    left: 50%;
+    width: 0%;
+  }
+  to {
+    left: 0%;
+    width: 100%;
+  }
+}
+
+.navbarMenuButtonBar {
+  height: 0.25rem;
+  background-color: #ffbb00;
+  width: 0%;
+  margin: 0px auto;
+}
+
+@media screen and (min-width: 768px) {
+  .menuButton {
+    text-align: left;
+    height: 2.5rem;
+    padding-bottom: 0;
+    display: flex;
+    z-index: 2;
+  }
+  .menuButton:hover {
+    /* background-color: #3c4244;
+    color: #ffbb00;
+    */
+    opacity: 0.5;
+  }
+  .navbarMenuButtonBar {
+    display: none;
+    /* position: absolute;
+    height: inherit;
+    width: -webkit-fill-available;
+    margin: 0;
+    z-index: 1;
+    width: 0; */
+  }
+
+  .menuButtonAnimation + button {
+    background-color: #ffbb00;
+    color: #323638;
   }
 
   .navbarMenuButtonBox {
-    width: 100%;
+    width: inherit;
     flex-direction: row;
-    margin-bottom:1.375rem;
-    margin-left: 1.25rem;
-
-  }
-
-  .menuButton {
-    text-align: left;
-    padding-bottom: 0;
-    margin-left: 0.75rem;
+    /* margin-bottom: 1.375rem; */
+    height: 40px;
   }
 
   .navbarButtonIcon {
     display: block;
     width: 1.5rem;
     height: 1.5rem;
-  }
-
-  .navbarMenuButtonBar {
-    display: none;
-  }
-
-  .searchBarForm{
-    width: 100%;
-  }
-
-  .searchBarInput{
-    width: 94%;
-    padding-right: 0;
+    margin-left: 1.375rem;
   }
 }
 
-/* 
-position: fixed;
-    top: 0;
-    width: 210px;
-    left: 0;
-    background-color: red;
-    height: 100%; */
+/*------------------------WATCHLIST----------------------------*/
+@media screen and (min-width: 768px) {
+.watchlistContainer{
+  width: 82%;
+}
+}

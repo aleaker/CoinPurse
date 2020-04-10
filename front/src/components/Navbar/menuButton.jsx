@@ -8,17 +8,17 @@ export default function MenuButton({
   history,
 }) {
   return (
-    <div className="navbarMenuButtonBox">
-     <img src={`/${icon}.png`} className="navbarButtonIcon" />
+    <div className="navbarMenuButtonBox"> <span className={animationAdder(path)}></span>
       <button
         className={"menuButton"}
         onClick={() => {
           history.push(`/${path}`);
         }}
-      >
+    >
+     <img src={`/${icon}.png`} className="navbarButtonIcon" />
         {buttonTitle}
       </button>
-      <span className={animationAdder(path)}></span>
+     
     </div>
   );
 }

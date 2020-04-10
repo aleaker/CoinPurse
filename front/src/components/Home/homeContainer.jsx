@@ -13,6 +13,7 @@ import {
 } from "../../../Store/actions/favoritesActions";
 import SingleCoin from "./singleCoin";
 
+//--------------geting icons---------------------------
 function importAll(r) {
   let icons = {};
   r.keys().map((item, index) => {
@@ -27,7 +28,8 @@ const icons = importAll(
     /\.png$/
   )
 );
-//  './images', false, '/\.png/'));
+
+
 
 export default function home() {
   const dispatch = useDispatch();
@@ -38,21 +40,15 @@ export default function home() {
   );
 
   useEffect(() => {
-    console.log("sss", icons["pivx@2x.png"]);
-    //  dispatch(fetchCoins());
+
     if (!followingArr.length) dispatch(fetchFavorites());
     list.length ? console.log("your list is" + list) : generateListForSearch();
 
-    //if(no hay lista){aca deberia generar la lista para la searchbar y guardarla en el store}
-    //navbar toma la lista desde el storestore
-    //compara con lo buscado y ¿dispara fetchSearchedCoins()?
+
     dispatch(setMyWatchlist([]));
     console.log(coins);
 
     const reloader = setInterval(() => {
-      //searched.length
-      //? dispatch(fetchSearchedCoins(searched[0].id))
-      //:
       dispatch(fetchCoins(searched));
     }, 10000);
     return () => clearInterval(reloader);
@@ -75,7 +71,6 @@ export default function home() {
   const handleAddFavorite = event => {
     event.preventDefault();
     let coinArr = event.target.value.split(",");
-    //console.log(coinArr);
     let coinObj = { name: coinArr[0], symbol: coinArr[1], coinId: coinArr[2] };
     dispatch(addFavorite(coinObj));
   };
@@ -101,7 +96,7 @@ export default function home() {
             followingArr={followingArr}
             handleAddFavorite={handleAddFavorite}
             handleDeletFavorite={handleDeletFavorite}
-            icon={icons[`${coin.symbol.toLowerCase()}@2x.png`]}
+            icon={icons[`${coin.symbol.toLowerCase()}@2x.png`] || icons["generic@2x.png"] } //import icon for singleCoin or a genericone
           />
         ))
       ) : (

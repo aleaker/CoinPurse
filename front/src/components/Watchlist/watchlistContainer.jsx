@@ -38,8 +38,8 @@ export default function Watchlist() {
   };
 
   return (
-    <div>
-      <div className="homeUpperBox"></div>
+    <div className="watchlistContainer">
+     
       {watched.length ? (
         watched.map(coin => (
           <WatchedCoin

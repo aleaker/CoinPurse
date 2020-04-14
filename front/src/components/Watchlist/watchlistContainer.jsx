@@ -2,46 +2,49 @@ import React, { useEffect, useState, useLayoutEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   fetchMyWatchlist,
-  setMyWatchlist
+  setMyWatchlist,
 } from "../../../Store/actions/watchlistActions";
 import WatchedCoin from "./watchedCoin";
 import {
   fetchFavorites,
-  deleteFavorite
+  deleteFavorite,
 } from "../../../Store/actions/favoritesActions";
+import axios from "axios"
+
 
 export default function Watchlist() {
-  const following = useSelector(state => state.following);
-  const watched = useSelector(state => state.watched);
+  const following = useSelector(state=>state.following)
+  const [watched,setWatched] = useState([])
   const dispatch = useDispatch();
 
+
+
+
+
   useEffect(() => {
-    dispatch(fetchFavorites()).then(({ favorites }) => {
-      following.length
-        ? dispatch(fetchMyWatchlist(following))
-        : dispatch(fetchMyWatchlist(favorites));
-    });
+console.log(following)
+fetchMyWatchlist(following,setWatched)
+
 
     // const reloader = setInterval(() => dispatch(fetchMyWatchlist(following)), 10000);
-
     // return () => clearInterval(reloader);
-  }, []);
+  }, [following]);
 
-  const handleDeletFavorite = event => {
+  const handleDeletFavorite = (event) => {
     event.preventDefault();
     console.log(event.target);
     dispatch(deleteFavorite(event.target.value));
     let newWatchlist = watched.filter(
-      element => element.name != event.target.value
+      (element) => element.id != event.target.value
     );
-    dispatch(setMyWatchlist(newWatchlist));
+    setWatched(newWatchlist)
+    //dispatch(setMyWatchlist(newWatchlist));
   };
 
   return (
     <div className="watchlistContainer">
-     
       {watched.length ? (
-        watched.map(coin => (
+        watched.map((coin) => (
           <WatchedCoin
             key={coin.symbol}
             coin={coin}

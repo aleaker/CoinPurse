@@ -12,6 +12,7 @@ import {
   fetchFavorites
 } from "../../../Store/actions/favoritesActions";
 import SingleCoin from "./singleCoin";
+import {addStorage,fetchStorages, deleteStorage} from "../../../Store/actions/storageActions"
 
 //--------------geting icons---------------------------
 function importAll(r) {
@@ -36,17 +37,21 @@ export default function home() {
   let coins = useSelector(state => state.coins);
   let searched = useSelector(state => state.searched);
   let followingArr = useSelector(state => state.following).map(
-    fav => fav.symbol
+    fav => fav.coinId
   );
+
+  const[test,setTest]=useState(false)
 
   useEffect(() => {
 
     if (!followingArr.length) dispatch(fetchFavorites());
-    list.length ? console.log("your list is" + list) : generateListForSearch();
+    if(!list.length)generateListForSearch();
+    dispatch(fetchStorages())
+    //list.length ? console.log("your list is" + list) : generateListForSearch();
 
 
-    dispatch(setMyWatchlist([]));
-    console.log(coins);
+   
+
 
     const reloader = setInterval(() => {
       dispatch(fetchCoins(searched));
@@ -64,15 +69,13 @@ export default function home() {
       listForSearch.push(coin.id, coin.symbol.toLowerCase());
     });
     dispatch(setList(listForSearch));
-    console.log(listForSearch, list);
+    //console.log(listForSearch, list);
   };
 
   //--------------event handlers-----------------------
   const handleAddFavorite = event => {
     event.preventDefault();
-    let coinArr = event.target.value.split(",");
-    let coinObj = { name: coinArr[0], symbol: coinArr[1], coinId: coinArr[2] };
-    dispatch(addFavorite(coinObj));
+    dispatch(addFavorite(event.target.value));
   };
 
   const handleDeletFavorite = event => {
@@ -80,11 +83,24 @@ export default function home() {
     dispatch(deleteFavorite(event.target.value));
   };
 
+  const handleAdd=event => {
+    event.preventDefault();
+    console.log(event.target.value)
+    setTest(event.target.value)
+  }
+
+  const handleAddStorage=e=>{
+    e.preventDefault();
+   // dispatch(addStorage({coinId:"ripple",storageName:"trazor"}))
+    dispatch(deleteStorage({id:1}))
+  }
+
   return (
     <div className="homeContainer">
     <div className="homeUpperBox"></div>
       {coins.length ? (
         coins.map(coin => (
+          <div>
           <SingleCoin
             coin={coin}
             priceUsd={parseFloat(coin.priceUsd).toFixed(
@@ -96,8 +112,11 @@ export default function home() {
             followingArr={followingArr}
             handleAddFavorite={handleAddFavorite}
             handleDeletFavorite={handleDeletFavorite}
-            icon={icons[`${coin.symbol.toLowerCase()}@2x.png`] || icons["generic@2x.png"] } //import icon for singleCoin or a genericone
+            handleAdd={handleAdd}
+            icon={icons[`${coin.symbol.toLowerCase()}@2x.png`] || icons["generic@2x.png"] } //import icon for singleCoin or a generic icon
           />
+          {(test && test==coin.symbol )&& <button onClick={e=>handleAddStorage(e)}>click me to test add!</button>}
+          </div>
         ))
       ) : (
         <p>HODL a SEC, loading...</p>

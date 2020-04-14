@@ -1,7 +1,8 @@
 const crypto = require("crypto");
 const S = require("sequelize");
 const db = require("../config/db");
-const Favorite = require("./favorite")
+const Favorite = require("./favorite");
+const Storage = require("./storage");
 
 class User extends S.Model {}
 
@@ -70,5 +71,6 @@ User.beforeCreate(user => {
 });
 
 User.hasMany(Favorite, { as: "favorite" });
+User.hasMany(Storage, { as: "storage" });
 
 module.exports = User;

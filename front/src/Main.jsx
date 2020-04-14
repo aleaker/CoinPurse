@@ -9,17 +9,18 @@ import { useSelector, useDispatch } from "react-redux";
 import { isLoged, fetchUser } from "../Store/actions/userActions";
 import "../../back/public/style.css";
 import { fetchCoins } from "../Store/actions/coinsActions";
+import { fetchFavorites } from "../Store/actions/favoritesActions";
 
 export default function Main() {
   const user = useSelector(state => state.user);
-  //const searched = useSelector(state => state.searched)
   const dispatch = useDispatch();
   let history = useHistory();
 
  
   useEffect(() => {
     dispatch(fetchUser());
-    dispatch(fetchCoins())
+    dispatch(fetchCoins());
+    dispatch(fetchFavorites());
      }, []);
 
   return (

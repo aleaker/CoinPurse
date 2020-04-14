@@ -5,6 +5,7 @@ export default function singleCoin({
   followingArr,
   handleAddFavorite,
   handleDeletFavorite,
+  handleAdd,
   icon,
   priceUsd,
   changePercent24Hr,
@@ -31,11 +32,11 @@ export default function singleCoin({
         <p className="singleCoinMarketCap">$ {marketCapUsd}B</p>
       </div>
       <div className="singleCoinLowerRow">
-        <button className="singleCoinAdd">Add</button>
-        {followingArr.includes(coin.symbol) ? (
+        <button onClick={event => handleAdd(event)} value={coin.symbol} className="singleCoinAdd">Add</button>
+        {followingArr.includes(coin.id) ? (
           <button
             onClick={event => handleDeletFavorite(event)}
-            value={coin.name}
+            value={coin.id}
             className="singleCoinUnfollow"
           >
             Unfollow
@@ -43,7 +44,7 @@ export default function singleCoin({
         ) : (
           <button
             onClick={event => handleAddFavorite(event)}
-            value={[coin.name, coin.symbol, coin.id]}
+            value={coin.id}
             className="singleCoinFollow"
           >
             Follow

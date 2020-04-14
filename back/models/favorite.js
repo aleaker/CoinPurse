@@ -4,12 +4,6 @@ const db = require("../config/db");
 class Favorite extends S.Model { }
 
 Favorite.init({
-    name:{
-        type:S.STRING
-    },
-    symbol:{
-        type:S.STRING
-    },
     coinId:{
         type:S.STRING
     },

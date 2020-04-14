@@ -11,7 +11,7 @@ router.get("/fetchFavorites", (req, res) => {
 
 router.post("/addFavorite", (req, res) => {
   Favorite.findOne({
-    where: { UserId: req.user.id, name: req.body.name }
+    where: { UserId: req.user.id, coinId: req.body.coinId }
   }).then(exists => {
     !!exists
       ? res.send("Already following the asset")
@@ -24,7 +24,7 @@ router.post("/addFavorite", (req, res) => {
 });
 
 router.delete("/deleteFavorite", (req, res) => {
-  Favorite.findOne({ where: { UserId: req.user.id, name: req.body.coinName } })
+  Favorite.findOne({ where: { UserId: req.user.id, coinId: req.body.coinId } })
     .then(fav => fav.destroy())
     .then(() => res.sendStatus(204));
 });

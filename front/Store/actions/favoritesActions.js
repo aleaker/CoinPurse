@@ -14,13 +14,14 @@ export const fetchFavorites = () => dispatch =>
     .then(res => res.data)
     .then(favorites => dispatch(setFavorites(favorites)));
 
-export const addFavorite = coinObj => dispatch =>
-  axios.post("api/favorites/addFavorite/", coinObj).then(answ => {
+export const addFavorite = coinId => dispatch =>{
+console.log(coinId);
+  axios.post("api/favorites/addFavorite/", {coinId}).then(answ => {
     answ.status == 201 ? dispatch(fetchFavorites()) : console.log(answ.data);
-  });
+  });}
 
-export const deleteFavorite = coinName => dispatch => {
+export const deleteFavorite = coinId => dispatch => {
   axios
-    .delete("api/favorites/deleteFavorite", { data: { coinName } })
+    .delete("api/favorites/deleteFavorite", { data: { coinId } })
     .then(answ=>answ.status== 204 ?  dispatch(fetchFavorites()):console.log("Error on delete"));
 };

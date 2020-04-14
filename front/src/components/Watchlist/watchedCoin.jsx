@@ -6,7 +6,7 @@ export default function WatchedCoin({ coin,handleDeletFavorite }) {
     <div className="singleWatchedCoin">
       <p>{coin.name}</p>
       <p>$ {parseFloat(coin.priceUsd).toFixed(2)}</p>
-      <button onClick={event => handleDeletFavorite(event)} value={coin.name}>
+      <button onClick={event => handleDeletFavorite(event)} value={coin.id}>
         Unfollow
       </button>
     </div>

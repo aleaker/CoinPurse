@@ -4,30 +4,36 @@ const Favorite = require("../models/favorite");
 const Storage = require("../models/storage");
 
 router.get("/fetchStorages", async (req, res) => {
+  console.log(req.user.id);
   try {
     let storages = await Storage.findAll({ where: { UserId: req.user.id } });
-    res.send(storages);
+    storages.length ? res.send(storages) : res.sendStatus(204);
   } catch (error) {
-    console.log(error);
+    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", error);
   }
 });
 
 router.post("/addStorage", async (req, res) => {
   console.log(req.body);
-  let storage = await Storage.findOne({
-    where: {
-      UserId: req.user.id,
-      coinId: req.body.coinId,
-      storageName: req.body.storageName,
-    },
-  });
-  if (!!storage) {
-    res.send("Storage already exists, please use another name");
-  } else {
-    let user = await User.findByPk(req.user.id);
-    let storage = await Storage.create(req.body);
-    user.addStorage(storage);
-    res.sendStatus(201);
+  
+  try {
+    // let storage = await Storage.findOne({
+    //   where: {
+    //     UserId: req.user.id,
+    //     coinId: req.body.coinId,
+    //     storageName: req.body.storageName,
+    //   },
+    // });
+    // if (!!storage) {
+    //   res.send("Storage already exists, please use another name");
+    // } else {
+      let user = await User.findByPk(req.user.id);
+      let storage = await Storage.bulkCreate(req.body);
+      user.addStorage(storage);
+      res.sendStatus(201);
+    //}
+  } catch (e) {
+    console.log(e);
   }
 });
 
@@ -37,8 +43,9 @@ router.delete("/deleteStorage", async (req, res) => {
     let storage = await Storage.findOne({ where: { id: req.body.id } });
     await storage.destroy();
     res.sendStatus(204);
-  } catch (error) {
-    console.log(error);
+  } catch (e) {
+    console.log("EEEEEEEEEEEEEEEEEEEEEEEEEE", e);
+    res.send("Problem on delete");
   }
 });
 module.exports = router;

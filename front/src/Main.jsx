@@ -20,7 +20,7 @@ export default function Main() {
   useEffect(() => {
     dispatch(fetchUser());
     dispatch(fetchCoins());
-    dispatch(fetchFavorites());
+   if(user.length) dispatch(fetchFavorites());
      }, []);
 
   return (

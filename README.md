@@ -3,9 +3,14 @@
 Coin Purse is a crypto assets organizer. Still in develompent.
 
 ## Pictures
+
 ![mobile login](https://user-images.githubusercontent.com/52142096/80117132-29535000-855d-11ea-87bf-6ffdaafa7880.jpg)
+
 ![mobile home](https://user-images.githubusercontent.com/52142096/80117156-2f493100-855d-11ea-9fe2-fee08991b154.jpg)
-![desktop home](https://user-images.githubusercontent.com/52142096/80117230-4ee05980-855d-11ea-89aa-94048295d62e.png)
+
+![desktop home](https://user-images.githubusercontent.com/52142096/80117558-b5fe0e00-855d-11ea-9a7d-6c7ad5419497.jpg)
+
+
 
 ## How to run it on a local server
 

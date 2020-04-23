@@ -25,12 +25,11 @@ export default function NavbarContainer({ user, history }) {
 
   const handleChangeSearch = (e) => {
     setSearchText(e.target.value.toLowerCase());
-    console.log(searchText);
+    
   };
 
   const handleSearch = (e) => {
     e.preventDefault();
-    console.log(searchText);
     dispatch(setSearched(searchText, list));
 
     // crear un array de coins.id y coins.symbol
@@ -42,7 +41,6 @@ export default function NavbarContainer({ user, history }) {
     let classes = `navbarMenuButtonBar ${
       history.location.pathname == `/${path}` ? "menuButtonAnimation" : ""
     }`;
-    console.log(path)
     return classes;
   }
 

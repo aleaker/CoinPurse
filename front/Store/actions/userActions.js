@@ -18,10 +18,10 @@ export const logOutUser = ({ username, password }) => dispatch =>
     dispatch(setUser({}));
   });
 
-export const registerUser = ({ registerUsername, registerPassword, email},history) => 
+export const registerUser = ({ username, password, email},history) => 
 dispatch => 
   axios
-    .post("/api/user/register", { registerUsername, registerPassword, email })
+    .post("/api/user/register", { username, password, email })
     .then(res => res.data) //returns error msg as string or user
     .then(data => {typeof data == 'string' ? dispatch(setError(data)) :( dispatch(setUser(data)),history.push("/home"))})
 

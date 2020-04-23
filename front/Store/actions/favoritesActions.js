@@ -7,14 +7,14 @@ import axios from "axios";
 export const setFavorites = (favorites) => (dispatch) =>
   dispatch({ type: "SET_FAVORITES", favorites });
 
-export const fetchFavorites = () => (dispatch) =>
-  axios
-    .get("api/favorites/fetchFavorites")
-    .then((res) => res.data)
-    .then((favorites) => dispatch(setFavorites(favorites)));
+export const fetchFavorites = () => async (dispatch) => {
+  let favObj = await axios.get("api/favorites/fetchFavorites");
+  let favArr = [];
+  favObj.data.map((fav) => favArr.push(fav.coinId));
+  dispatch(setFavorites(favArr));
+};
 
 export const addFavorite = (coinId) => (dispatch) => {
-  console.log(coinId);
   axios.post("api/favorites/addFavorite/", { coinId }).then((answ) => {
     answ.status == 201 ? dispatch(fetchFavorites()) : console.log(answ.data);
   });

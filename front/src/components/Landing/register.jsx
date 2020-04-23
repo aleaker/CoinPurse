@@ -1,6 +1,7 @@
 import React from "react";
 
 export default function landingRegister({
+  state,
   handleChange,
   handleSubmit,
   registerError,
@@ -16,7 +17,8 @@ export default function landingRegister({
           className="signInput"
           required
           placeholder="Username"
-          name="registerUsername"
+          name="username"
+          value={state.username}
           onChange={e => handleChange(e)}
         />
 
@@ -24,14 +26,16 @@ export default function landingRegister({
           className="signInput"
           name="email"
           placeholder="Email (optional)"
+          value={state.email}
           onChange={e => handleChange(e)}
         />
         <input
           className="signInput"
           required
           placeholder="Password"
-          name="registerPassword"
+          name="password"
           type="password"
+          value={state.password}
           onChange={e => handleChange(e)}
         />
 
@@ -41,6 +45,7 @@ export default function landingRegister({
           placeholder="Confirm password"
           name="confirmPassword"
           type="password"
+          value={state.confirmPassword}
           onChange={e => handleChange(e)}
         />
       </form>

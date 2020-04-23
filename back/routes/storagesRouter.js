@@ -9,13 +9,13 @@ router.get("/fetchStorages", async (req, res) => {
     let storages = await Storage.findAll({ where: { UserId: req.user.id } });
     storages.length ? res.send(storages) : res.sendStatus(204);
   } catch (error) {
-    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", error);
+    console.log(error);
   }
 });
 
 router.post("/addStorage", async (req, res) => {
-  console.log(req.body);
-  
+  req.body;
+
   try {
     // let storage = await Storage.findOne({
     //   where: {
@@ -27,13 +27,13 @@ router.post("/addStorage", async (req, res) => {
     // if (!!storage) {
     //   res.send("Storage already exists, please use another name");
     // } else {
-      let user = await User.findByPk(req.user.id);
-      let storage = await Storage.bulkCreate(req.body);
-      user.addStorage(storage);
-      res.sendStatus(201);
+    let user = await User.findByPk(req.user.id);
+    let storage = await Storage.bulkCreate(req.body);
+    user.addStorage(storage);
+    res.sendStatus(201);
     //}
   } catch (e) {
-    console.log(e);
+    res.send("Not created");
   }
 });
 
@@ -44,8 +44,9 @@ router.delete("/deleteStorage", async (req, res) => {
     await storage.destroy();
     res.sendStatus(204);
   } catch (e) {
-    console.log("EEEEEEEEEEEEEEEEEEEEEEEEEE", e);
+    console.log(e);
     res.send("Problem on delete");
   }
 });
+
 module.exports = router;

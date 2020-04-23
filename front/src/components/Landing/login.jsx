@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 export default function landingLogin({
+  state,
   handleChange,
   handleSubmit,
   wrongData,
@@ -15,6 +16,7 @@ export default function landingLogin({
           name="username"
           className="signInput"
           placeholder="Username"
+          value={state.username}
           onChange={e => handleChange(e)}
         />
 
@@ -23,6 +25,7 @@ export default function landingLogin({
           className="signInput"
           placeholder="Password"
           type="password" 
+          value={state.password}
           onChange={e => handleChange(e)}
         />
       </form>

@@ -17,7 +17,6 @@ export const fetchCoins = wanted => dispatch => {
 };
 
 export const fetchSearchedCoins = wanted => dispatch => {
-  console.log(wanted, "soy wanted amego");
   axios
     .get(`https://api.coincap.io/v2/assets?ids=${wanted}`)
     .then(res => res.data.data)

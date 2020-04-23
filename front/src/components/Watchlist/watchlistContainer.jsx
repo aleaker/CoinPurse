@@ -9,22 +9,15 @@ import {
   fetchFavorites,
   deleteFavorite,
 } from "../../../Store/actions/favoritesActions";
-import axios from "axios"
-
+import axios from "axios";
 
 export default function Watchlist() {
-  const following = useSelector(state=>state.following)
-  const [watched,setWatched] = useState([])
+  const following = useSelector((state) => state.following);
+  const [watched, setWatched] = useState([]);
   const dispatch = useDispatch();
 
-
-
-
-
   useEffect(() => {
-console.log(following)
-fetchMyWatchlist(following,setWatched)
-
+    fetchMyWatchlist(following, setWatched);
 
     // const reloader = setInterval(() => dispatch(fetchMyWatchlist(following)), 10000);
     // return () => clearInterval(reloader);
@@ -32,13 +25,11 @@ fetchMyWatchlist(following,setWatched)
 
   const handleDeletFavorite = (event) => {
     event.preventDefault();
-    console.log(event.target);
     dispatch(deleteFavorite(event.target.value));
     let newWatchlist = watched.filter(
       (element) => element.id != event.target.value
     );
-    setWatched(newWatchlist)
-    //dispatch(setMyWatchlist(newWatchlist));
+    setWatched(newWatchlist);
   };
 
   return (
@@ -52,7 +43,7 @@ fetchMyWatchlist(following,setWatched)
           />
         ))
       ) : (
-        <p>ta cargando pa</p>
+        <p>Loading...</p>
       )}
     </div>
   );

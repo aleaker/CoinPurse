@@ -1,19 +1,16 @@
 import axios from "axios";
 
-export const setMyWatchlist = watched => dispatch =>
+export const setMyWatchlist = (watched) => (dispatch) =>
   dispatch({ type: "SET_MYWATCHLIST", watched });
 
-export const fetchMyWatchlist = (following,setWatched) => {
-    let coinArr = [];
-    following.map((coin) => coinArr.push(coin.coinId));
-    if (following.length) {
-      axios
-        .get(`https://api.coincap.io/v2/assets?ids=${coinArr.toString()}`)
-        .then((res) => res.data.data)
-        .then((watched) => setWatched(watched));
-    }
-  };
-
+export const fetchMyWatchlist = async (following, setWatched) => {
+  if (following.length) {
+    let watchedCoinObjs = await axios.get(
+      `https://api.coincap.io/v2/assets?ids=${following.toString()}`
+    );
+    setWatched(watchedCoinObjs.data.data);
+  }
+};
 
 // export const fetchMyWatchlist = following => dispatch => {
 //   let coinArr = [];

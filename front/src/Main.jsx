@@ -12,15 +12,15 @@ import { fetchCoins } from "../Store/actions/coinsActions";
 import { fetchFavorites } from "../Store/actions/favoritesActions";
 
 export default function Main() {
-  const user = useSelector(state => state.user);
   const dispatch = useDispatch();
+  const user = useSelector(state => state.user);
   let history = useHistory();
 
  
   useEffect(() => {
     dispatch(fetchUser());
     dispatch(fetchCoins());
-   if(user.length) dispatch(fetchFavorites());
+   //if(user.length) dispatch(fetchFavorites());
      }, []);
 
   return (

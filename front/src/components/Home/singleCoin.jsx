@@ -3,7 +3,7 @@ import StorageDropDown from "./storageDropDown";
 
 export default function singleCoin({
   coin,
-  followingArr,
+  following,
   handleAddFavorite,
   handleDeletFavorite,
   handleOpenStorageDD,
@@ -12,7 +12,14 @@ export default function singleCoin({
   priceUsd,
   changePercent24Hr,
   marketCapUsd,
-  showStorageDD,handleChange,handleAddStorage,handleOneMore,storageObj,storageObjArr,handleDeleteFromArray
+  showStorageDD,
+  handleChange,
+  handleAddStorage,
+  handleOneMore,
+  storageObj,
+  storageObjArr,
+  handleDeleteFromArray,
+  errorMessage,handleResetError
 }) {
   // useEffect(()=>{
 
@@ -35,7 +42,18 @@ export default function singleCoin({
         <p className="singleCoinMarketCap">$ {marketCapUsd}B</p>
       </div>
       {showStorageDD == coin.id ? (
-        <StorageDropDown handleDeleteFromArray={handleDeleteFromArray} storageObjArr={storageObjArr} storageObj={storageObj}   coinId={coin.id} handleOneMore={handleOneMore} handelOneLessOrCancel={handelOneLessOrCancel} handleAddStorage={handleAddStorage} handleChange={handleChange}/>
+        <StorageDropDown
+          errorMessage={errorMessage}
+          handleDeleteFromArray={handleDeleteFromArray}
+          storageObjArr={storageObjArr}
+          storageObj={storageObj}
+          coinId={coin.id}
+          handleOneMore={handleOneMore}
+          handelOneLessOrCancel={handelOneLessOrCancel}
+          handleAddStorage={handleAddStorage}
+          handleChange={handleChange}
+          handleResetError={handleResetError}
+        />
       ) : (
         <div className="singleCoinLowerRow">
           <button
@@ -45,7 +63,7 @@ export default function singleCoin({
           >
             Add
           </button>
-          {followingArr.includes(coin.id) ? (
+          {following.includes(coin.id) ? (
             <button
               onClick={(event) => handleDeletFavorite(event)}
               value={coin.id}

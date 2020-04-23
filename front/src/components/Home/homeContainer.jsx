@@ -2,10 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setList } from "../../../Store/actions/listActions";
 import { setMyWatchlist } from "../../../Store/actions/watchlistActions";
-import {
-  fetchCoins,
-  fetchSearchedCoins,
-} from "../../../Store/actions/coinsActions";
+import { fetchCoins } from "../../../Store/actions/coinsActions";
 import {
   addFavorite,
   deleteFavorite,
@@ -20,36 +17,44 @@ import {
 
 export default function home() {
   const dispatch = useDispatch();
-  const [showStorageDD, setShowStorageDD] = useState(false);
+  let list = useSelector((state) => state.list);
+  let coins = useSelector((state) => state.coins);
+  let searched = useSelector((state) => state.searched);
+  let storagesArr = useSelector((state) => state.storages[1]);
+  let following = useSelector((state) => state.following);
   const initialStorageObj = {
     amount: "",
     storageName: "",
     coinId: "",
-  }
-  const [storageObj, setStorageObj] = useState(initialStorageObj); //, pk: "",date: ""
+  };
+  const [showStorageDD, setShowStorageDD] = useState(false);
   const [storageObjArr, setStorageObjArr] = useState([]);
-  let coins = useSelector((state) => state.coins);
-  let searched = useSelector((state) => state.searched);
-  let storages = useSelector((state) => state.storages);
-  let followingArr = useSelector((state) => state.following).map(
-    (fav) => fav.coinId
-  );
+  const [errorMessage, setErrorMessage] = useState();
+  
+  
+  //const [storagesArr, setStoragesArr] = useState([]);
+  const [storageObj, setStorageObj] = useState(initialStorageObj); //, pk: "",date: ""
+  
+
 
   useEffect(() => {
+
     if (!list.length) generateListForSearch();
-    if (!followingArr.length) dispatch(fetchFavorites()); //esto y el fetchstorage deberian ver si ya se busco en la base de datos en vez de seguir fetcheando siempre que no haya storages.length ni following.length
-    if (!storages.length) dispatch(fetchStorages());
+    if (!storagesArr) dispatch(fetchStorages());//guardar el "no storages yet" en el index 2 y traer eso para comparar en vez del index 0 que es un objeto gigante
+   // if (!storagesArr.length) generateStoragesArr();
+    if (!following.length) dispatch(fetchFavorites()); //esto y el fetchstorage deberian ver si ya se busco en la base de datos en vez de seguir fetcheando siempre que no haya storages.length ni following.length
 
     const reloader = setInterval(() => {
-      dispatch(fetchCoins(searched));
+      dispatch(fetchCoins(searched)); //if searched is not defined, it brigs all coins from the API
     }, 10000);
     return () => clearInterval(reloader);
+
   }, [coins]);
 
   //--------------geting icons---------------------------
   function importAll(r) {
     let icons = {};
-    r.keys().map((item, index) => {
+    r.keys().map((item) => {
       icons[item.replace("./", "")] = r(item);
     });
     return icons;
@@ -63,8 +68,6 @@ export default function home() {
   );
 
   //----------- search bar function------------------
-  const list = useSelector((state) => state.list);
-  const [haveList, setHaveList] = useState(false);
 
   const generateListForSearch = () => {
     const listForSearch = [];
@@ -72,9 +75,7 @@ export default function home() {
       listForSearch.push(coin.id, coin.symbol.toLowerCase());
     });
     dispatch(setList(listForSearch));
-    //console.log(listForSearch, list);
   };
-
   //--------------event handlers-----------------------
   const handleAddFavorite = (e) => {
     e.preventDefault();
@@ -88,63 +89,65 @@ export default function home() {
 
   const handleOpenStorageDD = (e) => {
     e.preventDefault();
-    console.log(e.target.value);
     setShowStorageDD(e.target.value);
-    console.log("open", showStorageDD);
+    setErrorMessage("");
   };
 
-
-
-  const handleAddStorage =  (e) => {
+  const handleAddStorage = (e) => {
     e.preventDefault();
-   let storageData = [...storageObjArr,storageObj];
-   storageData.map((storageObj) => {
-      storageObj.coinId = e.target.value;
-    });
-    dispatch(addStorage(storageData));
-    setStorageObj(initialStorageObj)
-    setStorageObjArr([]);
-    setShowStorageDD(false);
-
+    if (!storageObj.amount || !storageObj.storageName) {
+      setErrorMessage("You need to add a storage name and amount");
+    } else {
+      let storageData = [...storageObjArr, storageObj];
+      storageData.map((storageObj) => {
+        storageObj.coinId = e.target.value;
+      });
+      dispatch(addStorage(storageData));
+      setStorageObj(initialStorageObj);
+      setStorageObjArr([]);
+      setShowStorageDD(false);
+    }
   };
 
-  const handelOneLessOrCancel = (e)=>{
+  const handelOneLessOrCancel = (e) => {
     e.preventDefault();
-    if(storageObjArr.length){
-      let newArr = storageObjArr
+    if (storageObjArr.length) {
+      let newArr = storageObjArr;
       newArr.pop();
       setStorageObjArr([...newArr]);
-    }else{ 
+    } else {
       setStorageObj(initialStorageObj);
       setShowStorageDD(false);
     }
-  }
+  };
 
   const handleOneMore = (e) => {
     e.preventDefault();
-    console.log(storageObjArr);
-    setStorageObjArr((prevState) => [...prevState, storageObj]);
-    setStorageObj(initialStorageObj);
+    !storageObj.amount || !storageObj.storageName
+      ? setErrorMessage("You need to add a storage name and amount")
+      : (setStorageObjArr((prevState) => [...prevState, storageObj]),
+        setStorageObj(initialStorageObj));
   };
 
-  const handleDeleteFromArray=(e)=>{
+  const handleDeleteFromArray = (e) => {
     e.preventDefault();
-    
-
-    let newArr=storageObjArr
-    newArr.splice(e.target.value,1)
-    setStorageObjArr([...newArr])
-
-  }
+    let newArr = storageObjArr;
+    newArr.splice(e.target.value, 1);
+    setStorageObjArr([...newArr]);
+  };
 
   const handleChange = (e) => {
     e.persist();
     setStorageObj((prevObj) => ({
       ...prevObj,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value.split(" ").join(""),
     }));
   };
 
+  const handleResetError = (e) => {
+    e.preventDefault();
+    setErrorMessage("");
+  };
 
   //----------------------------------------------------------
 
@@ -154,6 +157,7 @@ export default function home() {
       {coins.length ? (
         coins.map((coin) => (
           <div key={coin.symbol}>
+            {/* <p>{storagesArr && storagesArr.includes(coin.id) ? "owned" : "not owned"}</p> */}
             <SingleCoin
               coin={coin}
               priceUsd={parseFloat(coin.priceUsd).toFixed(
@@ -164,7 +168,7 @@ export default function home() {
                 2
               )}
               key={coin.symbol}
-              followingArr={followingArr}
+              following={following}
               handleAddFavorite={handleAddFavorite}
               handleDeletFavorite={handleDeletFavorite}
               handleOpenStorageDD={handleOpenStorageDD}
@@ -180,6 +184,8 @@ export default function home() {
               storageObj={storageObj}
               storageObjArr={storageObjArr}
               handleDeleteFromArray={handleDeleteFromArray}
+              errorMessage={errorMessage}
+              handleResetError={handleResetError}
             />
             {/* {test && test == coin.symbol && (
               <button onClick={(e) => handleAddStorage(e)}>

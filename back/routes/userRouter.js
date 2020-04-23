@@ -3,8 +3,8 @@ const passport = require("../config/passport");
 const User = require("../models/user");
 
 router.post("/register", (req, res) => {
-  const username = req.body.registerUsername;
-  const password = req.body.registerPassword;
+  const username = req.body.username;
+  const password = req.body.password;
   const email = req.body.email;
   User.create({ username, password, email }).then(user =>
     req.logIn(user, err => {

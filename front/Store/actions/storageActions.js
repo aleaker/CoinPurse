@@ -1,13 +1,17 @@
 import axios from "axios";
 
-export const setStorages = (storages) => (dispatch) =>
-  dispatch({ type: "SET_STORAGES", storages });
+export const setStorages = (storages,storagesArr) => (dispatch) =>
+  dispatch({ type: "SET_STORAGES", storages,storagesArr });
+
 
 export const fetchStorages = () => async (dispatch) => {
   let res = await axios.get("api/storages/fetchStorages");
-  res.status == 204
-    ? dispatch(setStorages(["No storages yet"]))
-    : dispatch(setStorages(res.data));
+  if(res.status == 204)
+    {dispatch(setStorages(["No storages yet"]))
+}else{ 
+    let storagesArr=[];
+    res.data.map(storage=>storagesArr.push(storage.coinId))
+    dispatch(setStorages(res.data,storagesArr));}
 };
 
 export const addStorage = (storageData) => async (dispatch) => {
@@ -16,7 +20,6 @@ export const addStorage = (storageData) => async (dispatch) => {
 };
 
 export const deleteStorage = (storageData) => async (dispatch) => {
-  console.log(storageData);
   let answ = await axios.delete("api/storages/deleteStorage", {
     data: storageData,
   });

@@ -18,5 +18,5 @@ export default combineReducers({
     watched: watchlistReducer,
     searched: searchReducer,
     list: listReducer,
-    storages: storageReducer,
+    storages: storageReducer
 });

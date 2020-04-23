@@ -2,7 +2,7 @@
 
 Coin Purse is a crypto assets organizer. 
 
-## How to use it on a local server
+## How to run it on a local server
 
 1) Clone this repository
 

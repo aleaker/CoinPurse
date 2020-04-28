@@ -19,7 +19,7 @@ export default function singleCoin({
   storageObj,
   storageObjArr,
   handleDeleteFromArray,
-  errorMessage,handleResetError
+  errorMessage,handleResetError,storagesArr
 }) {
   // useEffect(()=>{
 
@@ -27,6 +27,7 @@ export default function singleCoin({
 
   return (
     <div value={coin.name} className="singleCoinContainer" key={coin.symbol}>
+    <p>{storagesArr && storagesArr.includes(coin.id) ? "owned" : "not owned"}</p>
       <div className="singleCoinUpperRow">
         <img src={icon} className="singleCoinIcon" />
         <div className="singleCoinNameAndSymbolBox">

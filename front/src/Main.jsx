@@ -7,7 +7,7 @@ import UserOptions from "./components/UserOptions/UserOptionsContainer"
 import Watchlist from "./components/Watchlist/watchlistContainer";
 import { useSelector, useDispatch } from "react-redux";
 import { isLoged, fetchUser } from "../Store/actions/userActions";
-import "../../back/public/style.css";
+import "../build/style.css";
 import { fetchCoins } from "../Store/actions/coinsActions";
 import { fetchFavorites } from "../Store/actions/favoritesActions";
 

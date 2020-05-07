@@ -1,5 +1,8 @@
 node_modules/
-back/public/bundle.js
-back/public/bundle.js.map
-back/node_modules
+public/bundle.js
+public/bundle.js.map
+node_modules
+.env
+front/build/bundle.js
+front/build/bundle.js.map
 front/node_modules

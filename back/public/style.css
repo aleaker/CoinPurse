@@ -233,6 +233,10 @@
   border-radius: 1rem;
 }
 
+.owned{
+  background-color: #c2c2c2c2
+}
+
 .singleCoinUpperRow {
   display: flex;
   justify-content: space-between;

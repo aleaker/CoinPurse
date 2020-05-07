@@ -15,6 +15,7 @@ export const fetchFavorites = () => async (dispatch) => {
 };
 
 export const addFavorite = (coinId) => (dispatch) => {
+  console.log(coinId)
   axios.post("api/favorites/addFavorite/", { coinId }).then((answ) => {
     answ.status == 201 ? dispatch(fetchFavorites()) : console.log(answ.data);
   });

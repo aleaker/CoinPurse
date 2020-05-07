@@ -16,7 +16,7 @@ export default function storageDropDown({
     <div>
       {!!storageObjArr.length &&
         storageObjArr.map((storage, index) => (
-          <div>
+          <div key={index}>
             <p>{storage.storageName}</p>
             <p>{storage.amount}</p>
             <button value={index} onClick={(e) => handleDeleteFromArray(e)}>

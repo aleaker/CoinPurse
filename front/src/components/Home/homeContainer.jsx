@@ -20,7 +20,8 @@ export default function home() {
   let list = useSelector((state) => state.list);
   let coins = useSelector((state) => state.coins);
   let searched = useSelector((state) => state.searched);
-  let storagesArr = useSelector((state) => state.storages[1]);
+  let storagesDbState = useSelector((state) => state.storages[0]);
+  let storagesArr = useSelector((state) => state.storages[1]);//OJO esto repite los coinid en el array. Ej: "bitcoin,bitcoin,etherum"
   let following = useSelector((state) => state.following);
   const initialStorageObj = {
     amount: "",
@@ -40,8 +41,7 @@ export default function home() {
   useEffect(() => {
 
     if (!list.length) generateListForSearch();
-    if (!storagesArr) dispatch(fetchStorages());//guardar el "no storages yet" en el index 2 y traer eso para comparar en vez del index 0 que es un objeto gigante
-   // if (!storagesArr.length) generateStoragesArr();
+    if (!storagesArr && storagesDbState != "emptyDb") dispatch(fetchStorages());
     if (!following.length) dispatch(fetchFavorites()); //esto y el fetchstorage deberian ver si ya se busco en la base de datos en vez de seguir fetcheando siempre que no haya storages.length ni following.length
 
     const reloader = setInterval(() => {
@@ -84,12 +84,16 @@ export default function home() {
 
   const handleDeletFavorite = (e) => {
     e.preventDefault();
+    if(storagesArr.includes(e.target.value)){console.log("está")};
+    console.log(e.target)
     dispatch(deleteFavorite(e.target.value));
   };
 
   const handleOpenStorageDD = (e) => {
     e.preventDefault();
     setShowStorageDD(e.target.value);
+    setStorageObj(initialStorageObj);
+    setStorageObjArr([]);
     setErrorMessage("");
   };
 
@@ -113,7 +117,7 @@ export default function home() {
     e.preventDefault();
     if (storageObjArr.length) {
       let newArr = storageObjArr;
-      newArr.pop();
+      setStorageObj(newArr.pop());
       setStorageObjArr([...newArr]);
     } else {
       setStorageObj(initialStorageObj);
@@ -157,7 +161,6 @@ export default function home() {
       {coins.length ? (
         coins.map((coin) => (
           <div key={coin.symbol}>
-            {/* <p>{storagesArr && storagesArr.includes(coin.id) ? "owned" : "not owned"}</p> */}
             <SingleCoin
               coin={coin}
               priceUsd={parseFloat(coin.priceUsd).toFixed(
@@ -186,12 +189,9 @@ export default function home() {
               handleDeleteFromArray={handleDeleteFromArray}
               errorMessage={errorMessage}
               handleResetError={handleResetError}
+              storagesArr={storagesArr}
             />
-            {/* {test && test == coin.symbol && (
-              <button onClick={(e) => handleAddStorage(e)}>
-                click me to test add!
-              </button>
-            )} */}
+
           </div>
         ))
       ) : (

@@ -10,7 +10,7 @@
   "scripts": {
     "start": "nodemon index.js",
     "heroku-prebuild": "npm install --dev",
-    "heroku-postbuild": "webpack -p --config ./webpack.prod.config.js --progress",
+    "heroku-postbuild": "cd front && npm install && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Alejo Akerfeld",

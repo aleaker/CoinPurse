@@ -4,7 +4,7 @@
   "description": "crypto assets organizer",
   "main": "index.js",
   "scripts": {
-    "build": "webpack -w",
+    "build": "webpack -p --config ./webpack.prod.config.js --progress",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Alejo Akerfeld",

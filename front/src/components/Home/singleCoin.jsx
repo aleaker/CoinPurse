@@ -57,6 +57,7 @@ export default function singleCoin({
         />
       ) : (
         <div className="singleCoinLowerRow">
+        {storagesArr && storagesArr.includes(coin.id) ? "owned" : "not owned"}
           <button
             onClick={(event) => handleOpenStorageDD(event)}
             value={coin.id}

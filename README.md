@@ -2,6 +2,10 @@
 
 Coin Purse is a crypto assets organizer. Still in develompent.
 
+## Deployed project
+
+https://crypto-coin-purse.herokuapp.com/
+
 ## Pictures
 
 ![mobile login](https://user-images.githubusercontent.com/52142096/80117132-29535000-855d-11ea-87bf-6ffdaafa7880.jpg)

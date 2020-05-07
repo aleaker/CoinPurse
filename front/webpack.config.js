@@ -9,6 +9,9 @@ module.exports = {
     extensions: [".js", ".jsx"]
   },
   context: __dirname,
+  performance: {
+    hints: false
+  },
   module: {
     rules: [
       {
@@ -40,5 +43,5 @@ module.exports = {
   devServer: {
     historyApiFallback: true
   },
-  devtool: "source-map"
+  devtool: false
 };

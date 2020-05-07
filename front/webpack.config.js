@@ -3,7 +3,7 @@ module.exports = {
   entry: ["babel-polyfill", "./src/index.js"],
   output: {
     filename: "bundle.js",
-    path: __dirname + "./build"
+    path: __dirname + "/build"
   },
   resolve: {
     extensions: [".js", ".jsx"]

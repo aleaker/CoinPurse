@@ -215,11 +215,7 @@
   }
 }
 
-/*-----------------------WATCHLIST-------------------------*/
-.singleWatchedCoin {
-  background-color: #ffbb00;
-  width: 58rem;
-}
+
 
 /*-------------------------SINGLECOIN--------------------------*/
 
@@ -233,9 +229,6 @@
   border-radius: 1rem;
 }
 
-.owned{
-  background-color: #c2c2c2c2
-}
 
 .singleCoinUpperRow {
   display: flex;
@@ -312,6 +305,11 @@
   border: 0;
   color: #313638;
   background-color: #ffbb00;
+}
+
+.owned{
+  color: #ffbb00;
+  background-color: #313638;
 }
 
 .singleCoinFollow {
@@ -575,8 +573,25 @@
 }
 
 /*------------------------WATCHLIST----------------------------*/
+
+.singleWatchedCoin {
+  background-color: #ffbb00;
+  width: 58rem;
+}
+.watchlistUpperBox {
+  height: 7.5rem;
+}
 @media screen and (min-width: 768px) {
 .watchlistContainer{
   width: 82%;
 }
 }
+
+
+
+
+@media screen and (min-width: 768px) {
+  .temporalBox{
+    width: 82%;
+  }
+  }

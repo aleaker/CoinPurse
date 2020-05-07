@@ -14,7 +14,7 @@ export default function UserOptions({user,history}) {
   };
 
   return (
-    <div>
+    <div className="temporalBox">
         <div className="homeUpperBox"></div> 
       <button onClick={event => handleLogout(event)}>Logout</button>
     </div>

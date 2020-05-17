@@ -15,7 +15,6 @@ export const fetchFavorites = () => async (dispatch) => {
 };
 
 export const addFavorite = (coinId) => (dispatch) => {
-  console.log(coinId)
   axios.post("api/favorites/addFavorite/", { coinId }).then((answ) => {
     answ.status == 201 ? dispatch(fetchFavorites()) : console.log(answ.data);
   });
@@ -26,7 +25,8 @@ export const deleteFavorite = (coinId) => (dispatch) => {
     .delete("api/favorites/deleteFavorite", { data: { coinId } })
     .then((answ) =>
       answ.status == 204
-        ? dispatch(fetchFavorites())
+        ?
+         dispatch(fetchFavorites())
         : console.log("Error on delete")
     );
 };

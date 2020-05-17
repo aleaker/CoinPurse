@@ -4,6 +4,7 @@ const Favorite = require("../models/favorite");
 
 
 router.get("/fetchFavorites", (req, res) => {
+  console.log(req.user.id )
   Favorite.findAll({ where: { UserId: req.user.id } }).then(favorites =>
     res.send(favorites)
   );
@@ -23,10 +24,15 @@ router.post("/addFavorite", (req, res) => {
   });
 });
 
-router.delete("/deleteFavorite", (req, res) => {
-  Favorite.findOne({ where: { UserId: req.user.id, coinId: req.body.coinId } })
-    .then(fav => fav.destroy())
-    .then(() => res.sendStatus(204));
+router.delete("/deleteFavorite", async (req, res) => {
+  try{
+    let fav = await Favorite.findOne({ where: { UserId: req.user.id, coinId: req.body.coinId } })
+    await fav.destroy();
+    res.sendStatus(204);
+  }catch(e){
+    console.log(e);
+}
+
 });
 
 module.exports = router;

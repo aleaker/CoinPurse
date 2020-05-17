@@ -30,6 +30,32 @@
   }
 }
 
+
+
+
+.homeYellowButton{
+  border: 0;
+  outline: none;
+  margin-left: 0.25rem;
+  width: 50%;
+  flex-grow: 1;
+
+  color: #313638;
+  background-color: #ffbb00;
+}
+
+.homeDarkButton {
+  border: 0;
+  outline: none;
+
+  width: 50%;
+  flex-grow: 1;
+
+  background-color: #313638;
+  color: #ffbb00;
+}
+
+
 /* ----------------- SIGN ---------------*/
 
 .signContainer {
@@ -173,6 +199,18 @@
 .signInput:focus,
 .signButton:focus,
 .resetOrRegButton:focus {
+  storageDDInput .signInput {
+    border: 0;
+    border-radius: 3rem;
+    flex: 2rem;
+    margin: 0.5rem;
+    background-color: #ffffff;
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    opacity: 0.8;
+    color: #313638;
+  }
   outline: none;
 }
 
@@ -215,8 +253,6 @@
   }
 }
 
-
-
 /*-------------------------SINGLECOIN--------------------------*/
 
 .singleCoinContainer {
@@ -228,7 +264,6 @@
   margin-bottom: 0.5rem;
   border-radius: 1rem;
 }
-
 
 .singleCoinUpperRow {
   display: flex;
@@ -307,7 +342,7 @@
   background-color: #ffbb00;
 }
 
-.owned{
+.owned {
   color: #ffbb00;
   background-color: #313638;
 }
@@ -582,16 +617,91 @@
   height: 7.5rem;
 }
 @media screen and (min-width: 768px) {
-.watchlistContainer{
-  width: 82%;
-}
-}
-
-
-
-
-@media screen and (min-width: 768px) {
-  .temporalBox{
+  .watchlistContainer {
     width: 82%;
   }
+}
+
+@media screen and (min-width: 768px) {
+  .temporalBox {
+    width: 82%;
   }
+}
+
+/*----------------------STORAGE DROP DOWN-----------------------------------*/
+
+.storageDDBox {
+  display: flex;
+  flex-direction: column;
+}
+
+.storageDDForm {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 1rem;
+}
+
+.addedStorage {
+  display: flex;
+  justify-content: space-evenly;
+  border-bottom: solid #efefef;
+
+}
+.addedStorage > p{
+  color: #313638;
+}
+
+.storageName {
+  margin-left: 1.5rem;
+  width: 50%;
+}
+.storageAmount {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+.clearStorageBox {
+ 
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  margin-right: 0.625rem;
+}
+.clearStorageButton {
+  background-color: #ffbb00;
+  border-radius: 15px;
+  border: none;
+}
+
+.storageDDInput {
+  border: 0;
+  border-radius: 3rem;
+  width: 9.8rem;
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  color: #313638;
+}
+
+.storageDDMenu {
+  display: flex;
+  justify-content: center;
+  height: 2.25rem;
+
+}
+
+.storageDDError {
+  display: flex;
+  justify-content: center;
+}
+
+.storageDDCandel{
+ 
+  border-bottom-left-radius: 1rem ;
+}
+
+.storageDDMore{
+  margin-left: 0.25rem;
+border-bottom-right-radius: 1rem ;
+}

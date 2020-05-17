@@ -59,6 +59,7 @@ export default function home() {
     });
     return icons;
   }
+
   const icons = importAll(
     require.context(
       "../../../node_modules/cryptocurrency-icons/32@2x/icon/",
@@ -79,11 +80,13 @@ export default function home() {
   //--------------event handlers-----------------------
   const handleAddFavorite = (e) => {
     e.preventDefault();
+    console.log(following);
     dispatch(addFavorite(e.target.value));
   };
 
   const handleDeletFavorite = (e) => {
     e.preventDefault();
+    console.log(following);
     if(storagesArr.includes(e.target.value)){console.log("está")};
     console.log(e.target)
     dispatch(deleteFavorite(e.target.value));
@@ -123,6 +126,7 @@ export default function home() {
       setStorageObj(initialStorageObj);
       setShowStorageDD(false);
     }
+    setErrorMessage("");
   };
 
   const handleOneMore = (e) => {

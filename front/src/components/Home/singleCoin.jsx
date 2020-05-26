@@ -44,7 +44,9 @@ export default function singleCoin({
         <p className="singleCoinMarketCap">$ {marketCapUsd}B</p>
       </div>
       {showStorageDD == coin.id ? (
-        <StorageDropDown
+        <div>
+        <StorageDropDown 
+        //storageVersion={"desktop"}
           errorMessage={errorMessage}
           handleDeleteFromArray={handleDeleteFromArray}
           storageObjArr={storageObjArr}
@@ -56,6 +58,8 @@ export default function singleCoin({
           handleChange={handleChange}
           handleResetError={handleResetError}
         />
+        <div id="singleCoinEmptyBox"></div>
+        </div>
       ) : (
         <div className="singleCoinLowerRow">
           <button

@@ -30,10 +30,7 @@
   }
 }
 
-
-
-
-.homeYellowButton{
+.homeYellowButton {
   border: 0;
   outline: none;
   margin-left: 0.25rem;
@@ -54,7 +51,6 @@
   background-color: #313638;
   color: #ffbb00;
 }
-
 
 /* ----------------- SIGN ---------------*/
 
@@ -199,11 +195,8 @@
 .signInput:focus,
 .signButton:focus,
 .resetOrRegButton:focus {
-
   outline: none;
 }
-
-
 
 .signInput:focus::placeholder {
   color: transparent;
@@ -389,6 +382,10 @@
   .singleCoinFollow,
   .singleCoinUnfollow {
     border-radius: 2rem;
+  }
+
+  #singleCoinEmptyBox {
+    width: 22.1rem;
   }
 }
 
@@ -629,16 +626,15 @@
 .storageDDForm {
   display: flex;
   justify-content: space-evenly;
-  margin-top: 1rem;
+  margin-top: 2rem;
 }
 
 .addedStorage {
   display: flex;
   justify-content: space-evenly;
   border-bottom: solid #efefef;
-
 }
-.addedStorage > p{
+.addedStorage > p {
   color: #313638;
 }
 
@@ -653,7 +649,6 @@
 }
 
 .clearStorageBox {
- 
   display: flex;
   justify-content: center;
   margin-top: 1rem;
@@ -664,37 +659,95 @@
   background-color: #ffbb00;
   border-radius: 15px;
   border: none;
+  font-weight: bold;
 }
-
-
 
 .storageDDInput {
   border: 0;
   border-radius: 3rem;
   width: 9.8rem;
+  height: 1.8rem;
   background-color: rgba(255, 255, 255, 0.8);
   text-align: center;
   color: #313638;
+}
+:focus {
+  outline: none;
 }
 
 .storageDDMenu {
   display: flex;
   justify-content: center;
   height: 2.25rem;
-
 }
 
 .storageDDError {
   display: flex;
   justify-content: center;
+  min-height: 3.125rem;
 }
 
-.storageDDCandel{
- 
-  border-bottom-left-radius: 1rem ;
+.storageDDCancel {
+  border-bottom-left-radius: 1rem;
 }
 
-.storageDDMore{
+.storageDDMore {
   margin-left: 0.25rem;
-border-bottom-right-radius: 1rem ;
+  border-bottom-right-radius: 1rem;
+}
+
+.storageDDOk:active,
+.storageDDCancel:active,
+.storageDDMore:active {
+  opacity: 0.2;
+}
+
+.test {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .test {
+    display: flex;
+    width: 100%;
+    height: 112%;
+    top: 0;
+    left: 18%;
+    background: #000;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 5;
+    position: fixed;
+  }
+
+  .storageDDBox {
+    justify-content: space-around;
+    z-index: 6;
+    border-radius: 1rem;
+    position: fixed;
+    left: 41%;
+    top: 50%;
+    margin-top: -10rem;
+    /* left: 40.8%;
+    top:26.8%; */
+    width: 23rem;
+    min-height: 10rem;
+    background-color: #e2e2e2;
+    animation: dropModalFromCenter 0.7s;
+  }
+
+  @keyframes dropModalFromCenter {
+    0% {
+      top: 0%;
+    }
+  }
+
+  .storageDDForm {
+    margin-top: 2.688rem;
+  }
+
+  .storageDDMore,
+  .storageDDCancel {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
 }

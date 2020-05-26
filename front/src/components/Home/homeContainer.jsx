@@ -31,6 +31,7 @@ export default function home() {
   const [showStorageDD, setShowStorageDD] = useState(false);
   const [storageObjArr, setStorageObjArr] = useState([]);
   const [errorMessage, setErrorMessage] = useState();
+  const [dimBackground,setDimBackground] = useState(false);
   
   
   //const [storagesArr, setStoragesArr] = useState([]);
@@ -78,17 +79,20 @@ export default function home() {
     dispatch(setList(listForSearch));
   };
   //--------------event handlers-----------------------
+
+  const resetDropDown = ()=>{
+    setStorageObj(initialStorageObj);
+    setShowStorageDD(false);
+    setDimBackground(false);
+  }
+
   const handleAddFavorite = (e) => {
     e.preventDefault();
-    console.log(following);
     dispatch(addFavorite(e.target.value));
   };
 
   const handleDeletFavorite = (e) => {
     e.preventDefault();
-    console.log(following);
-    if(storagesArr.includes(e.target.value)){console.log("está")};
-    console.log(e.target)
     dispatch(deleteFavorite(e.target.value));
   };
 
@@ -98,6 +102,7 @@ export default function home() {
     setStorageObj(initialStorageObj);
     setStorageObjArr([]);
     setErrorMessage("");
+    setDimBackground(true);
   };
 
   const handleAddStorage = (e) => {
@@ -110,11 +115,12 @@ export default function home() {
         storageObj.coinId = e.target.value;
       });
       dispatch(addStorage(storageData));
-      setStorageObj(initialStorageObj);
       setStorageObjArr([]);
-      setShowStorageDD(false);
+      resetDropDown();
     }
   };
+
+
 
   const handelOneLessOrCancel = (e) => {
     e.preventDefault();
@@ -123,8 +129,7 @@ export default function home() {
       setStorageObj(newArr.pop());
       setStorageObjArr([...newArr]);
     } else {
-      setStorageObj(initialStorageObj);
-      setShowStorageDD(false);
+      resetDropDown();
     }
     setErrorMessage("");
   };
@@ -157,11 +162,15 @@ export default function home() {
     setErrorMessage("");
   };
 
+
+
   //----------------------------------------------------------
 
   return (
     <div className="homeContainer">
       <div className="homeUpperBox"></div>
+      {console.log(dimBackground)}
+        {dimBackground?<div className="test"></div>:""}
       {coins.length ? (
         coins.map((coin) => (
           <div key={coin.symbol}>

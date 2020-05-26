@@ -1,6 +1,7 @@
 import React from "react";
 
 export default function storageDropDown({
+  //storageVersionStyle,
   storageObjArr,
   storageObj,
   handleAddStorage,
@@ -13,7 +14,9 @@ export default function storageDropDown({
   handleResetError,
 }) {
   return (
-    <div className="storageDDBox">
+    <div 
+    className="storageDDBox"// ${storageVersionStyle}`} 
+    >
       <div className="addedStorages">
         {!!storageObjArr.length &&
           storageObjArr.map((storage, index) => (
@@ -55,7 +58,7 @@ export default function storageDropDown({
         <p>{errorMessage || "   "}</p>
       </div>
       <div className="storageDDMenu">
-        <button className="storageDDCandel homeDarkButton" onClick={(e) => handelOneLessOrCancel(e)}>
+        <button className="storageDDCancel homeDarkButton" onClick={(e) => handelOneLessOrCancel(e)}>
           {storageObjArr.length ? "-" : "cancel"}
         </button>
         <button className="storageDDOk homeYellowButton" value={coinId} onClick={(e) => handleAddStorage(e)}>

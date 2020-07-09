@@ -14,4 +14,3 @@ const db = new S(
 
 module.exports = db;
 
-//process.env.NODE_ENV === "production" ? proConfig : devConfig

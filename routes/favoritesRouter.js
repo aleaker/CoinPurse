@@ -3,9 +3,9 @@ const User = require("../models/user");
 const Favorite = require("../models/favorite");
 
 
-router.get("/fetchFavorites", (req, res) => {
-  console.log(req.user.id )
-  Favorite.findAll({ where: { UserId: req.user.id } }).then(favorites =>
+router.get("/fetchFavorites", async (req, res) => {
+	const favorites = Favorite.findAll({ where: { UserId: req.user.id } })
+	.then(favorites =>
     res.send(favorites)
   );
 });

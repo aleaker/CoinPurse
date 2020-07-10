@@ -7,7 +7,9 @@ router.get("/fetchStorages", async (req, res) => {
   console.log(req.user.id);
   try {
     let storages = await Storage.findAll({ where: { UserId: req.user.id } });
-    storages.length ? res.send(storages) : res.sendStatus(204);
+    storages.length
+      ? res.send(storages).status(201)
+      : res.send({ errorMsg: "No storages found" }).status(204);
   } catch (error) {
     console.log(error);
   }
@@ -17,23 +19,12 @@ router.post("/addStorage", async (req, res) => {
   req.body;
 
   try {
-    // let storage = await Storage.findOne({
-    //   where: {
-    //     UserId: req.user.id,
-    //     coinId: req.body.coinId,
-    //     storageName: req.body.storageName,
-    //   },
-    // });
-    // if (!!storage) {
-    //   res.send("Storage already exists, please use another name");
-    // } else {
     let user = await User.findByPk(req.user.id);
     let storage = await Storage.bulkCreate(req.body);
     user.addStorage(storage);
     res.sendStatus(201);
-    //}
   } catch (e) {
-    res.send("Not created");
+    res.send({ errorMsg: "Not created" }).status(409);
   }
 });
 
@@ -45,7 +36,7 @@ router.delete("/deleteStorage", async (req, res) => {
     res.sendStatus(204);
   } catch (e) {
     console.log(e);
-    res.send("Problem on delete");
+    res.send({ errorMsg: "Problem on delete" }).status(409);
   }
 });
 

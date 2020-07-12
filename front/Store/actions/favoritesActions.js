@@ -14,19 +14,15 @@ export const fetchFavorites = () => async (dispatch) => {
   dispatch(setFavorites(favArr));
 };
 
-export const addFavorite = (coinId) => (dispatch) => {
-  axios.post("api/favorites/addFavorite/", { coinId }).then((answ) => {
-    answ.status == 201 ? dispatch(fetchFavorites()) : console.log(answ.data);
-  });
+export const addFavorite = (coinId) => async (dispatch) => {
+	const answ = await axios.post("api/favorites/addFavorite/", { coinId });
+    answ.status == 201 ? dispatch(fetchFavorites()) : console.log(answ.data.errorMsg);
 };
 
-export const deleteFavorite = (coinId) => (dispatch) => {
-  axios
-    .delete("api/favorites/deleteFavorite", { data: { coinId } })
-    .then((answ) =>
-      answ.status == 204
-        ?
-         dispatch(fetchFavorites())
-        : console.log("Error on delete")
-    );
+export const deleteFavorite = (coinId) => async (dispatch) => {
+	const answ = await axios.delete("api/favorites/deleteFavorite", { data: { coinId } });
+    answ.status == 204 ?
+        dispatch(fetchFavorites())
+		:
+		console.log("Error on delete");
 };

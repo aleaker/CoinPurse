@@ -4,11 +4,14 @@ export const setMyWatchlist = (watched) => (dispatch) =>
   dispatch({ type: "SET_MYWATCHLIST", watched });
 
 export const fetchMyWatchlist = async (following, setWatched) => {
+	//console.log(following)
   if (following.length) {
     let watchedCoinObjs = await axios.get(
       `https://api.coincap.io/v2/assets?ids=${following.toString()}`
-    );
+	);
     setWatched(watchedCoinObjs.data.data);
+  }else{
+	setWatched(["none"])
   }
 };
 
